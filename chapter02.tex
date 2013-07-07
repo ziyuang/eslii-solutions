@@ -1,0 +1,45 @@
+\section{Overview of Supervised Learning}
+
+%\begin{ex}
+%Suppose each of $K$-classes has an associated target $t_k$, which is a vector of all zeros, except a one in the $k$th position. Show that classifying to the largest element of $\hat{y}$ amounts to choosing the closest target, $\min_k\|t_k-\hat{y}\|$, if the elements of $\hat{y}$ sum to one.
+%\end{ex}
+\begin{sol}
+Since
+\[
+\hat{k}\triangleq\argmin_k\|t_k-\hat{y}\|=\argmin_k\|t_k-\hat{y}\|^2=\argmin_k\sum_{i\ne k}\hat{y}_i^2+(1-\hat{y}_k)^2
+\]
+and elements of $\hat{y}$ sum to one, so if $\hat{y}_k$ goes larger, both $\sum_{i\ne k}\hat{y}_i^2$ and $(1-\hat{y}_k)^2$ will get smaller, which means $\hat{k}=\argmax_k\hat{y}_i$ 
+\end{sol}
+
+%\begin{ex}
+%Show how to compute the Bayes decision boundary for the simulation example in Figure 2.5.
+%\end{ex}
+\begin{sol}
+According to the descriptions at page 16 to 17, the boundary is $\{x\mid \Pr(\mathrm{Orange}\vert X=x) =\Pr(\mathrm{Blue}\vert X=x)\}$, where
+\end{sol}
+
+%\begin{ex}
+%Derive equation (2.24).
+%\end{ex}
+\begin{sol}
+
+\end{sol}
+
+%\begin{ex}
+%The edge effect problem discussed on page 23 is not peculiar to
+%uniform sampling from bounded domains. Consider inputs drawn from a
+%spherical multinormal distribution $X \sim N(0,\mathbf{I}_p)$. The squared distance
+%from any sample point to the origin has a $\chi^2_p$ distribution with mean $p$.
+%Consider a prediction point $x_0$ drawn from this distribution,
+%and let $a =x_0/\|x_0\|$ be an associated unit vector.
+%Let $z_i=a^Tx_i$ be the projection of
+%each of the training points on this direction.\\
+%\indent Show that the $z_i$
+%are distributed $N (0, 1)$ with expected squared distance
+%from the origin $1$, while the target point has expected squared distance $p$
+%from the origin.\\
+%\indent Hence for $p = 10$, a randomly drawn test point is about 3.1 standard
+%deviations from the origin, while all the training points are on average
+%one standard deviation along direction $a$. So most prediction points see
+%themselves as lying on the edge of the training set.
+%\end{ex}

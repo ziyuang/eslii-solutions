@@ -1,0 +1,32 @@
+\documentclass{article}
+\usepackage{amsmath,amssymb}
+\usepackage{xltxtra,xunicode}
+\usepackage{fontspec}
+
+\title{Solutions of ESLII Exercises}
+\date{}
+
+%\renewcommand*{\theenumi}{Ex \thesection.\arabic{enumi}}
+
+\newcounter{theproblem}\setcounter{theproblem}{1}
+
+\newcounter{thesolution}\setcounter{thesolution}{1}
+
+\newenvironment{ex}[1][]{\medskip\noindent {\textbf{Ex
+\thesection.\arabic{theproblem} #1} \stepcounter{theproblem}}}
+
+\newenvironment{sol}[1][]{\medskip\noindent {\textbf{Sol
+\thesection.\arabic{thesolution} #1} \stepcounter{thesolution}}}{\medskip}
+
+\DeclareMathOperator*{\argmin}{arg\,min\,}
+\DeclareMathOperator*{\argmax}{arg\,max\,}
+%\newcommand{\Pr}[1]{\ensuremath{\operatorname{Pr}(#1\mid#2)}}
+
+\begin{document}
+\maketitle
+\setcounter{section}{1}
+
+
+\input{chapter02.tex}
+
+\end{document}
