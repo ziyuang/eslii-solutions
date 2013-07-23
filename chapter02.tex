@@ -44,7 +44,68 @@ The median $r_0$ then satisfies
 \Longleftrightarrow & 1-\left(1-r_0^p\right)^N=\left(1-r_0^p\right)^N \\
 \Longleftrightarrow & r_0=\left[1-\left(\frac{1}{2}\right)^{\frac{1}{N}}\right]^{\frac{1}{p}}
 \end{align*}
+\end{sol}
 
+%2.4
+\begin{sol}
+\begin{align*}
+x\sim\mathcal{N}(0,\mathbf{I}_p)\Longrightarrow & z=a^\mathrm{T}x\sim\mathcal{N}(a^\mathrm{T}0,a^\mathrm{T}\mathbf{I}_pa)=\mathcal{N}(0,1)\\
+\Longrightarrow & z^2\sim \chi_1^2
+\end{align*}
+\end{sol}
 
+%2.5
+\begin{sol}
+In the linear model $Y=\mathbf{X}\beta+\epsilon$, given an arbitrary test point $x_0$, the corresponding ground truth $y_0=x_0^\mathrm{T}\beta+\epsilon_0$ and the estimation $\hat{y}_0=x_0^\mathrm{T}\hat{\beta}$, we have
+\begin{align*}
+\mathrm{EPE}(x_0) = & \E_{y_0\vert x_0}\E_{\mathcal{T}}(y_0-\hat{y}_0)^2\\
+=& \E_{y_0\vert x_0}\E_{\mathcal{T}}\left[(y_0-x_0^\mathrm{T}\beta)-(\hat{y}_0-\E_\mathcal{T}\hat{y}_0)-(\E_\mathcal{T}\hat{y}_0-x_0^\mathrm{T}\beta)\right]^2 \\
+=& \E_{y_0\vert x_0}(y_0-x_0^\mathrm{T}\beta)^2+\E_{\mathcal{T}}(\hat{y}_0-\E_\mathcal{T}\hat{y}_0)^2+(\E_\mathcal{T}\hat{y}_0-x_0^\mathrm{T}\beta)^2 \\
+& -2 \E_{y_0\vert x_0}(y_0-x_0^\mathrm{T}\beta) \E_{\mathcal{T}}(\hat{y}_0-\E_\mathcal{T}\hat{y}_0) -2 \E_{y_0\vert x_0}(y_0-x_0^\mathrm{T}\beta) (\E_\mathcal{T}\hat{y}_0-x_0^\mathrm{T}\beta) \\
+& +2 \E_{\mathcal{T}}(\hat{y}_0-\E_\mathcal{T}\hat{y}_0)(\E_\mathcal{T}\hat{y}_0-x_0^\mathrm{T}\beta) \\
+=& \E_{y_0\vert x_0}(y_0-x_0^\mathrm{T}\beta)^2+\E_{\mathcal{T}}(\hat{y}_0-\E_\mathcal{T}\hat{y}_0)^2+(\E_\mathcal{T}\hat{y}_0-x_0^\mathrm{T}\beta)^2
+\end{align*}
+and
+\begin{align*}
+\hat{y}_0 =& x_0^\mathrm{T}\hat{\beta}\\
+=& x_0^\mathrm{T}\beta + (x_0^\mathrm{T}\hat{\beta}-x_0^\mathrm{T}\beta)\\
+=& x_0^\mathrm{T}\beta + (x_0^\mathrm{T}(\mathbf{X}^\mathrm{T}\mathbf{X})^{-1}\mathbf{X}^\mathrm{T}Y-x_0^\mathrm{T}(\mathbf{X}^\mathrm{T}\mathbf{X})^{-1}\mathbf{X}^\mathrm{T}\mathbf{X}\beta) \\
+=& x_0^\mathrm{T}\beta + x_0^\mathrm{T}(\mathbf{X}^\mathrm{T}\mathbf{X})^{-1}\mathbf{X}^\mathrm{T}\epsilon
+\end{align*}
+So
+\begin{align*}
+\E_{y_0\vert x_0}(y_0-x_0^\mathrm{T}\beta)^2 =& \sigma^2 \\
+\E_\mathcal{T} (\hat{y}_0-x_0^\mathrm{T}\beta)^2 =& x_0^\mathrm{T}(\mathbf{X}^\mathrm{T}\mathbf{X})^{-1}\mathbf{X}^\mathrm{T}\mathbf{X}(\mathbf{X}^\mathrm{T}\mathbf{X})^{-1}x_0\sigma^2 \\
+=& x_0^\mathrm{T}(\mathbf{X}^\mathrm{T}\mathbf{X})^{-1}x_0\sigma^2 \\
+\E_\mathcal{T} (\hat{y}_0-x_0^\mathrm{T}\beta) =& 0 \\
+\mathrm{EPE}(x_0) =& \sigma^2 + x_0^\mathrm{T}(\mathbf{X}^\mathrm{T}\mathbf{X})^{-1}x_0\sigma^2
+\end{align*}
+If $N$ is large and $E(X)=0$, $\mathbf{X}^\mathrm{T}\mathbf{X}\to N\cov(X)$, thus
+\begin{align*}
+\E_{x_0}\mathrm{EPE}(x_0) \sim & E_{x_0} x_0^\mathrm{T}\cov(X)^{-1}x_0\sigma^2/N + \sigma^2 \\
+=& E_{x_0} \tr \left[x_0^\mathrm{T}\cov(X)^{-1}x_0\right]\sigma^2/N + \sigma^2 \\
+=& E_{x_0} \tr \left[\cov(X)^{-1}(x_0x_0^\mathrm{T})\right]\sigma^2/N + \sigma^2 \\
+=& \tr\left[ \cov(X)^{-1} \cov(x_0)\right]\sigma^2/N + \sigma^2 \\
+=& \tr(\mathbf{I}_p)\sigma^2/N + \sigma^2 \\
+=& \sigma^2(p/N) + \sigma^2
+\end{align*}
+\end{sol}
+
+%2.6
+\begin{sol}
+The best $\hat{\theta}$ will be given by 
+\[
+\hat{\theta}=\argmin_\theta \sum_i (y_i-f_\theta(x_i))^2
+\]
+By differentiating,
+\[
+\sum_i \frac{\partial f_{\hat{\theta}}(x_i)}{\partial \hat{\theta}} (y_i-f_{\hat{\theta}}(x_i)) =0
+\]
+Suppose $x_{j_1}=\cdots=x_{j_k}=x_j$. We need to reduce the summands that involve these samples into one term, which is
+\begin{align*}
+\sum_l \frac{\partial f_{\hat{\theta}}(x_j)}{\partial \hat{\theta}} (y_{j_l}-f_{\hat{\theta}}(x_j)) =& \frac{\partial f_{\hat{\theta}}(x_j)}{\partial \hat{\theta}}\left(\sum_l y_{j_l} - k f_{\hat{\theta}}(x_j)\right) \\
+=& \frac{1}{k} \frac{\partial f_{\hat{\theta}}(x_j)}{\partial \hat{\theta}}\left(\frac{1}{k}\sum_l y_{j_l}-f_{\hat{\theta}}(x_j)\right)
+\end{align*}
+So equivalently, we can use the average of the group response as the reduced response, meanwhile giving this reduced variable $x_j$ weight $1/k$, where $k$ is the group size.
 \end{sol}
 
