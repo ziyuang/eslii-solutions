@@ -145,8 +145,32 @@ Since test data are i.i.d., we can set $M=N$ WLOG, which won't change $\E[R_{te}
 \[
 \E_{\mathcal{X},\mathcal{Y}}\left[\left\|Y-\mathbf{X}(\mathbf{X}^\mathrm{T}\mathbf{X})^{-1}\mathbf{X}^\mathrm{T}Y\right\|^2\right] \le \E_{\mathcal{X},\mathcal{Y},\tilde{\mathcal{X}},\tilde{\mathcal{Y}}}\left[\left\|\tilde{Y}-\tilde{\mathbf{X}}(\mathbf{X}^\mathrm{T}\mathbf{X})^{-1}\mathbf{X}^\mathrm{T}Y\right\|^2\right]
 \]
-or the sufficient point-wise version:
-\[
-\left\|Y-\mathbf{X}(\mathbf{X}^\mathrm{T}\mathbf{X})^{-1}\mathbf{X}^\mathrm{T}Y\right\|^2 \le \E_{\tilde{\mathcal{X}},\tilde{\mathcal{Y}}}\left[\left\|\tilde{Y}-\tilde{\mathbf{X}}(\mathbf{X}^\mathrm{T}\mathbf{X})^{-1}\mathbf{X}^\mathrm{T}Y\right\|^2\right]
-\]
+First,
+\begin{align*}
+\E_{\mathcal{Y}\vert \mathcal{X}}\left[\left\|Y-\mathbf{X}(\mathbf{X}^\mathrm{T}\mathbf{X})^{-1}\mathbf{X}^\mathrm{T}Y\right\|^2\right] =& \E_{\mathcal{Y}\vert \mathcal{X}}\left[\left\|\epsilon+\mathbf{X}\beta-\mathbf{X}(\mathbf{X}^\mathrm{T}\mathbf{X})^{-1}\mathbf{X}^\mathrm{T}Y\right\|^2\right] \\
+=& \E_{\mathcal{Y}\vert \mathcal{X}}\left[\left\|\epsilon+\mathbf{X}(\mathbf{X}^\mathrm{T}\mathbf{X})^{-1}\mathbf{X}^\mathrm{T}\mathbf{X}\beta-\mathbf{X}(\mathbf{X}^\mathrm{T}\mathbf{X})^{-1}\mathbf{X}^\mathrm{T}Y\right\|^2\right]\\
+=& \E_{\mathcal{Y}\vert \mathcal{X}}\left[\left\|\epsilon-\mathbf{X}(\mathbf{X}^\mathrm{T}\mathbf{X})^{-1}\mathbf{X}^\mathrm{T}\epsilon\right\|^2\right] \\
+=& N\sigma^2-\sigma^2\tr\left(\mathbf{X}(\mathbf{X}^\mathrm{T}\mathbf{X})^{-1}\mathbf{X}^\mathrm{T}\right)
+\end{align*}
+and similarly
+\begin{align*}
+\E_{\mathcal{Y}\vert \mathcal{X},\tilde{\mathcal{Y}}\vert \tilde{\mathcal{X}}}\left[\left\|\tilde{Y}-\tilde{\mathbf{X}}(\mathbf{X}^\mathrm{T}\mathbf{X})^{-1}\mathbf{X}^\mathrm{T}Y\right\|^2\right] =& \E_{\mathcal{Y}\vert \mathcal{X},\tilde{\mathcal{Y}}\vert \tilde{\mathcal{X}}}\left[\left\|\tilde{\epsilon}-\tilde{\mathbf{X}}(\mathbf{X}^\mathrm{T}\mathbf{X})^{-1}\mathbf{X}^\mathrm{T}\epsilon\right\|^2\right] \\
+=& \E_{\tilde{\mathcal{Y}}\vert \tilde{\mathcal{X}}}\left[\tilde{\epsilon}^\mathrm{T}\tilde{\epsilon}\right] + \E_{\mathcal{Y}\vert \mathcal{X}}\left[\epsilon^\mathrm{T}\mathbf{X}(\mathbf{X}^\mathrm{T}\mathbf{X})^{-1}\tilde{\mathbf{X}}^\mathrm{T}\tilde{\mathbf{X}}(\mathbf{X}^\mathrm{T}\mathbf{X})^{-1}\mathbf{X}^\mathrm{T}\epsilon\right] \\
+=& N\sigma^2+\sigma^2\tr\left(\mathbf{X}(\mathbf{X}^\mathrm{T}\mathbf{X})^{-1}\tilde{\mathbf{X}}^\mathrm{T}\tilde{\mathbf{X}}(\mathbf{X}^\mathrm{T}\mathbf{X})^{-1}\mathbf{X}^\mathrm{T}\right)
+\end{align*}
+From the semi-positiveness of the matrices inside the $\tr$'s, we have
+\begin{align*}
+& \E_{\mathcal{Y}\vert \mathcal{X}}\left[\left\|Y-\mathbf{X}(\mathbf{X}^\mathrm{T}\mathbf{X})^{-1}\mathbf{X}^\mathrm{T}Y\right\|^2\right]
+\le
+\E_{\mathcal{Y}\vert \mathcal{X},\tilde{\mathcal{Y}}\vert \tilde{\mathcal{X}}}\left[\left\|\tilde{Y}-\tilde{\mathbf{X}}(\mathbf{X}^\mathrm{T}\mathbf{X})^{-1}\mathbf{X}^\mathrm{T}Y\right\|^2\right]\\
+\Longrightarrow& 
+\E_{\mathcal{Y}\vert \mathcal{X}}\left[\left\|Y-\mathbf{X}(\mathbf{X}^\mathrm{T}\mathbf{X})^{-1}\mathbf{X}^\mathrm{T}Y\right\|^2\right]
+\le
+\E_{\mathcal{Y}\vert \mathcal{X},\tilde{\mathcal{Y}}, \tilde{\mathcal{X}}}\left[\left\|\tilde{Y}-\tilde{\mathbf{X}}(\mathbf{X}^\mathrm{T}\mathbf{X})^{-1}\mathbf{X}^\mathrm{T}Y\right\|^2\right] \\
+\Longrightarrow& 
+\E_{\mathcal{Y}, \mathcal{X}}\left[\left\|Y-\mathbf{X}(\mathbf{X}^\mathrm{T}\mathbf{X})^{-1}\mathbf{X}^\mathrm{T}Y\right\|^2\right]
+\le
+\E_{\mathcal{Y}, \mathcal{X},\tilde{\mathcal{Y}}, \tilde{\mathcal{X}}}\left[\left\|\tilde{Y}-\tilde{\mathbf{X}}(\mathbf{X}^\mathrm{T}\mathbf{X})^{-1}\mathbf{X}^\mathrm{T}Y\right\|^2\right] \\
+\Longrightarrow& \E\left[R_{tr}(\hat{\beta})\right] \le \E\left[R_{te}(\hat{\beta})\right]
+\end{align*}
 \end{sol}
