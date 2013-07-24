@@ -109,3 +109,44 @@ Suppose $x_{j_1}=\cdots=x_{j_k}=x_j$. We need to reduce the summands that involv
 So equivalently, we can use the average of the group response as the reduced response, meanwhile giving this reduced variable $x_j$ weight $1/k$, where $k$ is the group size.
 \end{sol}
 
+%2.7
+\begin{sol}
+\begin{enumerate}[label={(\alph*)}]
+\item 
+For linear regression $y=X\beta+\epsilon$, we know that $\hat{f}(x_0)=x_0^\mathrm{T}\hat{\beta}=x_0^\mathrm{T}(\mathbf{X}^\mathrm{T}\mathbf{X})^{-1}\mathbf{X}^\mathrm{T}Y$, so $\ell_i(x_0;\mathcal{X})$ is the $i$-th element of $x_0^\mathrm{T}(\mathbf{X}^\mathrm{T}\mathbf{X})^{-1}\mathbf{X}^\mathrm{T}$.\\
+For $k$NN regression, we can let $\ell_i(x_0;\mathcal{X})=I[x_i\in N_k(x_0)]/k$, where $I$ is the indicator function and $N_k(x_0)$ is the neighborhood of $k$-nearest neighbors at $x_0$.
+
+\item
+\begin{align*}
+\E_{\mathcal{Y}\vert\mathcal{X}}\left(f(x_0)-\hat{f}(x_0)\right)^2 =& \left(f(x_0)-\E_{\mathcal{Y}\vert\mathcal{X}}\hat{f}(x_0)\right)^2+\E_{\mathcal{Y}\vert\mathcal{X}}\left(\hat{f}(x_0)-\E_{\mathcal{Y}\vert\mathcal{X}}\hat{f}(x_0)\right)^2 \\
+=& \left(f(x_0)-\sum_{i=1}^N\ell_i(x_0;\mathcal{X})f(x_i)\right)^2 + \E_{\mathcal{Y}\vert\mathcal{X}}\left(\sum_{i=1}^N\ell_i(x_0;\mathcal{X})\epsilon_i\right)^2 \\
+=& \left(f(x_0)-\sum_{i=1}^N\ell_i(x_0;\mathcal{X})f(x_i)\right)^2 + \sigma^2\sum_{i=1}^N\ell_i^2(x_0;\mathcal{X})\\
+=& \mathrm{Bias}^2+\mathrm{Variance}
+\end{align*}
+
+\item
+\begin{align*}
+\E_{\mathcal{Y},\mathcal{X}}\left(f(x_0)-\hat{f}(x_0)\right)^2 =& \E_{\mathcal{X}}\E_{\mathcal{Y}\vert\mathcal{X}}\left(f(x_0)-\hat{f}(x_0)\right)^2 \\
+=& \E_{\mathcal{X}}\left(f(x_0)-\sum_{i=1}^N\ell_i(x_0;\mathcal{X})f(x_i)\right)^2 + \sigma^2 \sum_{i=1}^N\E_{\mathcal{X}}\ell_i^2(x_0;\mathcal{X}) \\
+=& ?
+\end{align*}
+\item Left unsolved.
+\end{enumerate}
+\end{sol}
+
+%2.8
+\begin{sol}
+Skipped.
+\end{sol}
+
+%2.9
+\begin{sol}
+Since test data are i.i.d., we can set $M=N$ WLOG, which won't change $\E[R_{te}(\hat{\beta})]$. Rewriting the inequality into the matrix form gives
+\[
+\E_{\mathcal{X},\mathcal{Y}}\left[\left\|Y-\mathbf{X}(\mathbf{X}^\mathrm{T}\mathbf{X})^{-1}\mathbf{X}^\mathrm{T}Y\right\|^2\right] \le \E_{\mathcal{X},\mathcal{Y},\tilde{\mathcal{X}},\tilde{\mathcal{Y}}}\left[\left\|\tilde{Y}-\tilde{\mathbf{X}}(\mathbf{X}^\mathrm{T}\mathbf{X})^{-1}\mathbf{X}^\mathrm{T}Y\right\|^2\right]
+\]
+or the sufficient point-wise version:
+\[
+\left\|Y-\mathbf{X}(\mathbf{X}^\mathrm{T}\mathbf{X})^{-1}\mathbf{X}^\mathrm{T}Y\right\|^2 \le \E_{\tilde{\mathcal{X}},\tilde{\mathcal{Y}}}\left[\left\|\tilde{Y}-\tilde{\mathbf{X}}(\mathbf{X}^\mathrm{T}\mathbf{X})^{-1}\mathbf{X}^\mathrm{T}Y\right\|^2\right]
+\]
+\end{sol}
