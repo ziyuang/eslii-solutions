@@ -8,17 +8,12 @@
 \date{\today}
 \author{Lin Ziyuan}
 
-%\renewcommand*{\theenumi}{Ex \thesection.\arabic{enumi}}
+\newcounter{theproblem}[section]
+\newcounter{thesolution}[section]
 
-\newcounter{theproblem}\setcounter{theproblem}{1}
+\newenvironment{ex}[1][]{\medskip\noindent {\stepcounter{theproblem}\textbf{Ex \thesection.\arabic{theproblem} #1} }}
 
-\newcounter{thesolution}\setcounter{thesolution}{1}
-
-\newenvironment{ex}[1][]{\medskip\noindent {\textbf{Ex
-\thesection.\arabic{theproblem} #1} \stepcounter{theproblem}}}
-
-\newenvironment{sol}[1][]{\medskip\noindent {\textbf{Sol
-\thesection.\arabic{thesolution} #1} \stepcounter{thesolution}}}{\medskip}
+\newenvironment{sol}[1][]{\medskip\noindent {\stepcounter{thesolution}\textbf{Sol \thesection.\arabic{thesolution} #1} }}{\medskip}
 
 \DeclareMathOperator*{\argmin}{arg\,min\,}
 \DeclareMathOperator*{\argmax}{arg\,max\,}
@@ -33,5 +28,7 @@
 
 
 \input{chapter02.tex}
+\newpage 
+\input{chapter03.tex}
 
 \end{document}
