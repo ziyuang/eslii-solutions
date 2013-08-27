@@ -1,0 +1,48 @@
+\section{Linear Methods for Regression}
+
+%3.1
+\begin{sol}
+Let $\hat{\beta}$ be the parameter estimation for the bigger model and $\tilde{\beta}$ be the one for the smaller model. We first have
+\begin{align*}
+(\mathrm{RSS}_0-\mathrm{RSS}_1)/(p_1-p_0) = & \|y-X\tilde{\beta}\|^2 - \|y-X\hat{\beta}\|^2 \\
+=& (y^\mathrm{T}y-2\tilde{\beta}^\mathrm{T}X^\mathrm{T}y+\tilde{\beta}^\mathrm{T}X^\mathrm{T}X\tilde{\beta}) - (y^\mathrm{T}y-2\hat{\beta}^\mathrm{T}X^\mathrm{T}y+\hat{\beta}^\mathrm{T}X^\mathrm{T}X\hat{\beta}) \\
+=& 2(\hat{\beta}-\tilde{\beta})^\mathrm{T}X^\mathrm{T}(y-X\hat{\beta}) + (\hat{\beta}-\tilde{\beta})^\mathrm{T}X^\mathrm{T}X (\hat{\beta}-\tilde{\beta}) \\
+=& 2(\hat{\beta}-\tilde{\beta})^\mathrm{T}(X^\mathrm{T}y-X^\mathrm{T}X(X^\mathrm{T}X)^{-1}X^\mathrm{T}y) + (\hat{\beta}-\tilde{\beta})^\mathrm{T}X^\mathrm{T}X (\hat{\beta}-\tilde{\beta}) \\
+=& (\hat{\beta}-\tilde{\beta})^\mathrm{T}X^\mathrm{T}X (\hat{\beta}-\tilde{\beta})\\
+=& \|X (\hat{\beta}-\tilde{\beta})\|^2
+\end{align*}
+Note that $\hat{\beta}$ and $\tilde{\beta}$ satisfy
+\[
+\hat{\beta}=\argmin_\beta\|y-X\beta\|^2
+\]
+and
+\begin{align*}
+\tilde{\beta}=&\argmin_\beta\|y-X\beta\|^2\\
+&\mbox{s.t. }\beta_j=0
+\end{align*}
+Denote $e_j$ as the vector with the $j$-th element being 1 and others being 0. Considering the conditions of the stationary points, we have
+\[
+X^\mathrm{T}(y-X\hat{\beta})=0
+\]
+and
+\[
+\begin{cases}
+& X^\mathrm{T}(y-X\tilde{\beta})-\lambda e_j=0\\
+& \tilde{\beta}_j=0
+\end{cases}
+\]
+which gives
+\[
+X^\mathrm{T}X (\hat{\beta}-\tilde{\beta}) = \lambda e_j \Longrightarrow \|X (\hat{\beta}-\tilde{\beta})\|^2 = \lambda^2 (X^\mathrm{T}X)^{-1}_{jj} = \lambda^2 (X^\mathrm{T}X)^{-1}_{jj}
+\]
+To determine the value of the Lagrange multiplier $\lambda$, one only needs to notice that
+\begin{align*}
+&\hat{\beta}-\tilde{\beta} = \lambda (X^\mathrm{T}X)^{-1} e_j = \lambda (X^\mathrm{T}X)^{-1}_j \\
+\Longrightarrow & \hat{\beta}_j = \lambda (X^\mathrm{T}X)^{-1}_{jj} \\
+\Longrightarrow & \lambda = \frac{\hat{\beta}_j}{(X^\mathrm{T}X)^{-1}_{jj}}
+\end{align*}
+where $(X^\mathrm{T}X)^{-1}_j$ is the $j$-th column of $(X^\mathrm{T}X)^{-1}$. If define $v_j\triangleq(X^\mathrm{T}X)^{-1}_{jj}$ and recall $\mathrm{RSS}_1/(N-p_1-1)=\hat{\sigma}^2$, we finally have
+\[
+F = \left(\frac{\hat{\beta}_j}{v_j}\right)^2 \frac{v_j}{\hat{\sigma}^2} = \frac{\hat{\beta}_j^2}{\hat{\sigma}^2v_j}
+\]
+\end{sol}
