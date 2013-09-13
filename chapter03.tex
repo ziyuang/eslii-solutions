@@ -18,9 +18,9 @@ Note that $\hat{\beta}$ and $\tilde{\beta}$ satisfy
 and
 \begin{align*}
 \tilde{\beta}=&\argmin_\beta\|y-X\beta\|^2\\
-&\mbox{s.t. }\beta_j=0
+\st &\beta_j=0
 \end{align*}
-Denote $e_j$ as the vector with the $j$-th element being 1 and others being 0. Considering the conditions of the stationary points, we have
+Denote $e_j$ as the vector with the $j$-th element being 1 and others being 0. The optimality conditions are
 \[
 X^\mathrm{T}(y-X\hat{\beta})=0
 \]
@@ -45,4 +45,49 @@ where $(X^\mathrm{T}X)^{-1}_j$ is the $j$-th column of $(X^\mathrm{T}X)^{-1}$. I
 \[
 F = \left(\frac{\hat{\beta}_j}{v_j}\right)^2 \frac{v_j}{\hat{\sigma}^2} = \frac{\hat{\beta}_j^2}{\hat{\sigma}^2v_j}
 \]
+\end{sol}
+
+%3.2
+\begin{sol}
+Leave it later
+\end{sol}
+
+%3.3
+\begin{sol}
+\begin{enumerate}
+\item Let $\theta=a^\mathrm{T}\beta$, $\hat{\theta}=a^\mathrm{T}\hat{\beta}=b^\mathrm{T}y$ and $\tilde{\theta}=c^\mathrm{T}y$, where $\hat{\beta}=(X^{\mathrm{T}}X)^{-1}X^{\mathrm{T}}y$, $b=X(X^{\mathrm{T}}X)^{-1}a$ and $y\sim\mathcal{N}(X\beta,\sigma^2I)$. From the unbiasedness of $\tilde{\theta}$, we know $\E[\tilde{\theta}]=c^{\mathrm{T}}X\beta=\E[\hat{\theta}]=a^\mathrm{T}\beta$. Expanding $\var[\hat{\theta}]$ and $\var[\tilde{\theta}]$ we will have
+\begin{align*}
+\var[\hat{\theta}] =& b^\mathrm{T}(\sigma^2 I)b\\
+=& \sigma^2 a^\mathrm{T}(X^{\mathrm{T}}X)^{-1}X^\mathrm{T}X(X^{\mathrm{T}}X)^{-1}a\\
+=& \sigma^2 a^\mathrm{T}(X^{\mathrm{T}}X)^{-1}a\\
+\var[\tilde{\theta}] =& c^\mathrm{T}(\sigma^2 I)c\\
+=& \sigma^2 c^\mathrm{T}c
+\end{align*}
+Now consider
+\begin{align*}
+\min_c \ & c^\mathrm{T}c\\
+\st & c^{\mathrm{T}}X\beta=a^\mathrm{T}\beta
+\end{align*}
+The Lagrangian $L=c^\mathrm{T}c+\lambda(c^{\mathrm{T}}X\beta-a^\mathrm{T}\beta)$ gives the stationary condition:
+\begin{align*}
+\frac{\partial L}{\partial c}=& 2c+\lambda X\beta=0\\
+\frac{\partial L}{\partial \lambda}=& c^{\mathrm{T}}X\beta-a^\mathrm{T}\beta=0
+\end{align*}
+Canceling the $\lambda$ gives
+\[
+c=\frac{a^\mathrm{T}\beta}{\beta^{\mathrm{T}}X^{\mathrm{T}}X\beta}\cdot X\beta
+\]
+So
+\begin{align*}
+& c^\mathrm{T}c\ge \frac{\left(a^\mathrm{T}\beta\right)^2}{\beta^{\mathrm{T}}X^{\mathrm{T}}X\beta}=\frac{\beta^{\mathrm{T}}aa^{\mathrm{T}}\beta}{\beta^{\mathrm{T}}X^{\mathrm{T}}X\beta}\\
+\Longrightarrow & c^\mathrm{T}c\ge \max_\beta \frac{\beta^{\mathrm{T}}aa^{\mathrm{T}}\beta}{\beta^{\mathrm{T}}X^{\mathrm{T}}X\beta}
+\end{align*}
+The final optimization problem is equivalent to
+\begin{align*}
+\max_\beta \ & \beta^{\mathrm{T}}aa^{\mathrm{T}}\beta\\
+\st & \beta^{\mathrm{T}}X^{\mathrm{T}}X\beta=1
+\end{align*}
+Again by Lagrange multiplier, we can see that the maximum is achieved at the eigenvector corresponding to the largest eigenvalue, denoted as $\mu$, of $A=aa^{\mathrm{T}}(X^{\mathrm{T}}X)^{-1}$. But since $\mathrm{rank}(A)=1$, so $\mu=\tr(A)=a^{\mathrm{T}}(X^{\mathrm{T}}X)^{-1}a$.
+\item 
+\end{enumerate}
 \end{sol}
