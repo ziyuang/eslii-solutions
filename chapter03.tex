@@ -49,13 +49,15 @@ F = \left(\frac{\hat{\beta}_j}{v_j}\right)^2 \frac{v_j}{\hat{\sigma}^2} = \frac{
 
 %3.2
 \begin{sol}
-Leave it later
+TODO
 \end{sol}
 
 %3.3
 \begin{sol}
 \begin{enumerate}
-\item Let $\theta=a^\mathrm{T}\beta$, $\hat{\theta}=a^\mathrm{T}\hat{\beta}=b^\mathrm{T}y$ and $\tilde{\theta}=c^\mathrm{T}y$, where $\hat{\beta}=(X^{\mathrm{T}}X)^{-1}X^{\mathrm{T}}y$, $b=X(X^{\mathrm{T}}X)^{-1}a$ and $y\sim\mathcal{N}(X\beta,\sigma^2I)$. From the unbiasedness of $\tilde{\theta}$, we know $\E[\tilde{\theta}]=c^{\mathrm{T}}X\beta=\E[\hat{\theta}]=a^\mathrm{T}\beta$. Expanding $\var[\hat{\theta}]$ and $\var[\tilde{\theta}]$ we will have
+\item
+\label{3.3-1}
+Let $\theta=a^\mathrm{T}\beta$, $\hat{\theta}=a^\mathrm{T}\hat{\beta}=b^\mathrm{T}y$ and $\tilde{\theta}=c^\mathrm{T}y$, where $\hat{\beta}=(X^{\mathrm{T}}X)^{-1}X^{\mathrm{T}}y$, $b=X(X^{\mathrm{T}}X)^{-1}a$ and $y\sim\mathcal{N}(X\beta,\sigma^2I)$. From the unbiasedness of $\tilde{\theta}$, we know $\E[\tilde{\theta}]=c^{\mathrm{T}}X\beta=\E[\hat{\theta}]=a^\mathrm{T}\beta$. Expanding $\var[\hat{\theta}]$ and $\var[\tilde{\theta}]$ we will have
 \begin{align*}
 \var[\hat{\theta}] =& b^\mathrm{T}(\sigma^2 I)b\\
 =& \sigma^2 a^\mathrm{T}(X^{\mathrm{T}}X)^{-1}X^\mathrm{T}X(X^{\mathrm{T}}X)^{-1}a\\
@@ -87,7 +89,13 @@ The final optimization problem is equivalent to
 \max_\beta \ & \beta^{\mathrm{T}}aa^{\mathrm{T}}\beta\\
 \st & \beta^{\mathrm{T}}X^{\mathrm{T}}X\beta=1
 \end{align*}
-Again by Lagrange multiplier, we can see that the maximum is achieved at the eigenvector corresponding to the largest eigenvalue, denoted as $\mu$, of $A=aa^{\mathrm{T}}(X^{\mathrm{T}}X)^{-1}$. But since $\mathrm{rank}(A)=1$, so $\mu=\tr(A)=a^{\mathrm{T}}(X^{\mathrm{T}}X)^{-1}a$.
-\item 
+Again by Lagrange multiplier, we can see that the maximum is the largest eigenvalue, denoted as $\mu$, of $A=aa^{\mathrm{T}}(X^{\mathrm{T}}X)^{-1}$. But since $\mathrm{rank}(A)=1$, so $\mu=\tr(A)=a^{\mathrm{T}}(X^{\mathrm{T}}X)^{-1}a$.
+\item We similarly let $\tilde{\beta}=Cy\in\mathbb{R}^{p+1}$, then $\hat{V}=\sigma^2(X^\mathrm{T}X)^{-1}$, $\tilde{V}=\sigma^2CC^{\mathrm{T}}$ and $\E[\tilde{\beta}]=CX\beta=\beta$. From \ref{3.3-1}, $\forall a\in\mathbb{R}^{p+1}$, given $a^{\mathrm{T}}CX\beta=a^{\mathrm{T}}\beta$, we have
+\begin{align*}
+& a^{\mathrm{T}}CC^{\mathrm{T}}a\ge a^{\mathrm{T}}(X^\mathrm{T}X)^{-1}a\\
+\Longrightarrow & a^{\mathrm{T}}\left(CC^{\mathrm{T}}-(X^\mathrm{T}X)^{-1}\right)a\ge 0\\
+\Longrightarrow & CC^{\mathrm{T}} - \left(X^\mathrm{T}X\right)^{-1} \succeq 0\\
+\Longrightarrow & CC^{\mathrm{T}}\succeq \left(X^\mathrm{T}X\right)^{-1}
+\end{align*}
 \end{enumerate}
 \end{sol}
