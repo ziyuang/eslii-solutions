@@ -99,3 +99,27 @@ Again by Lagrange multiplier, we can see that the maximum is the largest eigenva
 \end{align*}
 \end{enumerate}
 \end{sol}
+
+%3.4
+\begin{sol}
+From $X=QR$ one can get $\hat{\beta}=(X^\mathrm{T}X)^{-1}X^\mathrm{T}y=R^{-1}Q^\mathrm{T}y\Longrightarrow R\hat{\beta}=Q^\mathrm{T}y$. Further we denote
+\begin{align*}
+X =& (x_1,\cdots,x_{p+1})\\
+Q =& (e_1,\cdots,e_{p+1})=(\frac{z_1}{\|z_1\|},\cdots,\frac{z_{p+1}}{\|z_{p+1}\|})\\
+r_{ij} =& e_i^\mathrm{T}x_j
+\end{align*}
+Then we can write the equations involving individual $\hat{\beta}_i$'s in a ``bottom-up'' way
+\begin{align*}
+(e_{p+1}^\mathrm{T}x_{p+1})\hat{\beta}_{p+1} &= e_{p+1}^\mathrm{T}y\\
+(e_{p}^\mathrm{T}x_{p})\hat{\beta}_{p} + (e_{p}^\mathrm{T}x_{p+1})\hat{\beta}_{p+1} &= e_{p}^\mathrm{T}y\\
+&\vdotswithin{=}\\
+(e_{1}^\mathrm{T}x_{1})\hat{\beta}_{1} + \cdots + (e_{1}^\mathrm{T}x_{p+1})\hat{\beta}_{p+1} &= e_{1}^\mathrm{T}y
+\end{align*}
+This can be solved sequentially:
+\begin{align*}
+\hat{\beta}_{p+1} &= \frac{e_{p+1}^\mathrm{T}y}{e_{p+1}^\mathrm{T}x_{p+1}}\\
+\hat{\beta}_{p} &= \frac{e_{p}^\mathrm{T}y}{e_{p}^\mathrm{T}x_{p}}-\frac{e_{p}^\mathrm{T}x_{p+1}}{e_{p}^\mathrm{T}x_{p}}\hat{\beta}_{p+1}\\
+&\vdotswithin{=}\\
+\hat{\beta}_{1} &= \frac{e_{1}^\mathrm{T}y}{e_{1}^\mathrm{T}x_{1}}- \frac{e_{1}^\mathrm{T}x_{2}}{e_{1}^\mathrm{T}x_{1}}\hat{\beta}_{2} - \cdots - \frac{e_{1}^\mathrm{T}x_{p+1}}{e_{1}^\mathrm{T}x_{1}}\hat{\beta}_{p+1}
+\end{align*}
+\end{sol}
