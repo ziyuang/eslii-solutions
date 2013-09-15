@@ -128,9 +128,9 @@ For $k$NN regression, we can let $\ell_i(x_0;\mathcal{X})=I[x_i\in N_k(x_0)]/k$,
 \begin{align*}
 \E_{\mathcal{Y},\mathcal{X}}\left(f(x_0)-\hat{f}(x_0)\right)^2 =& \E_{\mathcal{X}}\E_{\mathcal{Y}\vert\mathcal{X}}\left(f(x_0)-\hat{f}(x_0)\right)^2 \\
 =& \E_{\mathcal{X}}\left(f(x_0)-\sum_{i=1}^N\ell_i(x_0;\mathcal{X})f(x_i)\right)^2 + \sigma^2 \sum_{i=1}^N\E_{\mathcal{X}}\ell_i^2(x_0;\mathcal{X}) \\
-=& ?
+=& \mathrm{Bias}^2+\mathrm{Variance}
 \end{align*}
-\item TODO.
+\item One might trivially say $\mathrm{Bias}^2_{u}=\E_\mathcal{X}\mathrm{Bias}^2_{c}$ and $\mathrm{Variance}_{u}=\E_\mathcal{X}\mathrm{Variance}_{c}$, where $u$ stands for ``unconditional'' and $c$ stands for ``conditional''.
 \end{enumerate}
 \end{sol}
 
