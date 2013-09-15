@@ -45,11 +45,17 @@ where $(X^\mathrm{T}X)^{-1}_j$ is the $j$-th column of $(X^\mathrm{T}X)^{-1}$. I
 \[
 F = \left(\frac{\hat{\beta}_j}{v_j}\right)^2 \frac{v_j}{\hat{\sigma}^2} = \frac{\hat{\beta}_j^2}{\hat{\sigma}^2v_j}
 \]
+\textbf{Update}: By the relationship between $t$-distribution and $F$-distribution
+\begin{align*}
+t_\nu=& \frac{Z}{\sqrt{\chi_\nu^2/\nu}}\\
+=& \frac{\sqrt{\chi_1^2/1}}{\sqrt{\chi_\nu^2/\nu}}\\
+=& \sqrt{F_{1,\nu}}
+\end{align*}
+one can finish the proof immediately.
 \end{sol}
 
 %3.2
 \begin{sol}
-TODO
 \end{sol}
 
 %3.3
@@ -122,4 +128,12 @@ This can be solved sequentially:
 &\vdotswithin{=}\\
 \hat{\beta}_{1} &= \frac{e_{1}^\mathrm{T}y}{e_{1}^\mathrm{T}x_{1}}- \frac{e_{1}^\mathrm{T}x_{2}}{e_{1}^\mathrm{T}x_{1}}\hat{\beta}_{2} - \cdots - \frac{e_{1}^\mathrm{T}x_{p+1}}{e_{1}^\mathrm{T}x_{1}}\hat{\beta}_{p+1}
 \end{align*}
+\end{sol}
+
+%3.5
+\begin{sol}
+\begin{enumerate}
+\item For ridge regression
+\item For lasso
+\end{enumerate}
 \end{sol}
