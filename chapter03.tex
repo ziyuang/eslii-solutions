@@ -163,18 +163,18 @@ Then one can follow the routine of ridge regression to get other $\beta_j^c$'s w
 \begin{sol}
 From
 \begin{align*}
-P(\beta\vert \mathbf{y}) \propto & P(\mathbf{y}\vert\beta)P(\beta)\\
-\propto& \exp\left[-\frac{1}{2\sigma^2}\left(\|\mathbf{y}-\mathbf{X}\beta\|^2+\frac{\sigma^2}{\tau}\|\beta\|^2\right)\right]
+P(\beta\vert y) \propto & P(y\vert\beta)P(\beta)\\
+\propto& \exp\left[-\frac{1}{2\sigma^2}\left(\|y-X\beta\|^2+\frac{\sigma^2}{\tau}\|\beta\|^2\right)\right]
 \end{align*}
 we immediately know that $\lambda=\sigma^2/\tau$ and ridge regression estimate is the mode of the posterior distribution. To prove that it's also the mean, we let $\hat{\beta}$ be the ridge regression estimate:
 \[
-\hat{\beta}=\left(\mathbf{X}^\mathrm{T}\mathbf{X}+\frac{\sigma^2}{\tau}I\right)^{-1}\mathbf{X}^\mathrm{T}\mathbf{y}
+\hat{\beta}=\left(X^\mathrm{T}X+\frac{\sigma^2}{\tau}I\right)^{-1}X^\mathrm{T}y
 \]
 then
 \begin{align*}
-& \|\mathbf{y}-\mathbf{X}\beta\|^2+\frac{\sigma^2}{\tau}\|\beta\|^2 \\
-=& \beta^\mathrm{T}\left(\mathbf{X}^\mathrm{T}\mathbf{X}+\frac{\sigma^2}{\tau}I\right)\beta - 2\mathbf{y}^\mathrm{T}\mathbf{X}\beta + \mathbf{y}^\mathrm{T}\mathbf{y}\\
-=& (\beta-\hat{\beta})^\mathrm{T}\left(\mathbf{X}^\mathrm{T}\mathbf{X}+\frac{\sigma^2}{\tau}I\right)(\beta-\hat{\beta})-\hat{\beta}^\mathrm{T}\left(\mathbf{X}^\mathrm{T}\mathbf{X}+\frac{\sigma^2}{\tau}I\right)\hat{\beta}+\|\mathbf{y}\|^2
+& \|y-X\beta\|^2+\frac{\sigma^2}{\tau}\|\beta\|^2 \\
+=& \beta^\mathrm{T}\left(X^\mathrm{T}X+\frac{\sigma^2}{\tau}I\right)\beta - 2y^\mathrm{T}X\beta + y^\mathrm{T}y\\
+=& (\beta-\hat{\beta})^\mathrm{T}\left(X^\mathrm{T}X+\frac{\sigma^2}{\tau}I\right)(\beta-\hat{\beta})-\hat{\beta}^\mathrm{T}\left(X^\mathrm{T}X+\frac{\sigma^2}{\tau}I\right)\hat{\beta}+\|y\|^2
 \end{align*}
 So $\hat{\beta}$ also maximizes the likelihood of the posterior distribution.
 \end{sol}
