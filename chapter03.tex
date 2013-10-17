@@ -56,6 +56,10 @@ one can finish the proof immediately.
 
 %3.2
 \begin{sol}
+%\begin{enumerate}
+%\item Pointwise confidence bands
+%\item Simultaneous confidence bands
+%\end{enumerate}
 \end{sol}
 
 %3.3
@@ -133,7 +137,44 @@ This can be solved sequentially:
 %3.5
 \begin{sol}
 \begin{enumerate}
-\item For ridge regression
-\item For lasso
+\item Ridge regression. From
+\begin{align*}
+\mathcal{L} =& \sum_{i=1}^{N}\left(y_i-\beta_0-\sum_{j=1}^{p}x_{ij}\beta_j\right)^2+\lambda\sum_{j=1}^{p}\beta_j^2\\
+=& \sum_{i=1}^{N}\left[y_i-\left(\beta_0+\sum_{j=1}^{p}\bar{x}_j\beta_j\right)-\sum_{j=1}^{p}\left(x_{ij}-\bar{x}_j\right)\beta_j\right]^2+\lambda\sum_{j=1}^{p}\beta_j^2
+\end{align*}
+we can re-parameterize $\beta$ accordingly:
+\[
+\begin{cases}
+\beta_0^c=\beta_0+\sum_{j=1}^{p}\bar{x}_j\beta_j\\
+\beta_j^c=\beta_j\quad(1\le j\le p)
+\end{cases}
+\]
+By setting $\partial \mathcal{L}/\partial \beta^c_0=0$, we have
+\begin{align*}
+& \sum_{i=1}^{N}\left[y_i-\beta_0^c-\sum_{j=1}^{p}\left(x_{ij}-\bar{x}_j\right)\beta^c_j\right]=0\\
+\Longrightarrow & \beta_0^c=\frac{1}{N}\sum_{i=1}^{N}y_i-\frac{1}{N}\sum_{j=1}^{p}\sum_{i=1}^{N}\left(x_{ij}-\bar{x}_j\right)\beta^c_j=\frac{1}{N}\sum_{i=1}^{N}y_i
+\end{align*}
+Then one can follow the routine of ridge regression to get other $\beta_j^c$'s with the centered design matrix.
+\item Lasso. The regularization term does not affect the derivation of $\beta_0^c$, so we have the same $\beta_0^c$, with other $\beta_j^c$'s obtained from any Lasso solver.
 \end{enumerate}
+\end{sol}
+
+%3.6
+\begin{sol}
+From
+\begin{align*}
+P(\beta\vert \mathbf{y}) \propto & P(\mathbf{y}\vert\beta)P(\beta)\\
+\propto& \exp\left[-\frac{1}{2\sigma^2}\left(\|\mathbf{y}-\mathbf{X}\beta\|^2+\frac{\sigma^2}{\tau}\|\beta\|^2\right)\right]
+\end{align*}
+we immediately know that $\lambda=\sigma^2/\tau$ and ridge regression estimate is the mode of the posterior distribution. To prove that it's also the mean, we let $\hat{\beta}$ be the ridge regression estimate:
+\[
+\hat{\beta}=\left(\mathbf{X}^\mathrm{T}\mathbf{X}+\frac{\sigma^2}{\tau}I\right)^{-1}\mathbf{X}^\mathrm{T}\mathbf{y}
+\]
+then
+\begin{align*}
+& \|\mathbf{y}-\mathbf{X}\beta\|^2+\frac{\sigma^2}{\tau}\|\beta\|^2 \\
+=& \beta^\mathrm{T}\left(\mathbf{X}^\mathrm{T}\mathbf{X}+\frac{\sigma^2}{\tau}I\right)\beta - 2\mathbf{y}^\mathrm{T}\mathbf{X}\beta + \mathbf{y}^\mathrm{T}\mathbf{y}\\
+=& (\beta-\hat{\beta})^\mathrm{T}\left(\mathbf{X}^\mathrm{T}\mathbf{X}+\frac{\sigma^2}{\tau}I\right)(\beta-\hat{\beta})-\hat{\beta}^\mathrm{T}\left(\mathbf{X}^\mathrm{T}\mathbf{X}+\frac{\sigma^2}{\tau}I\right)\hat{\beta}+\|\mathbf{y}\|^2
+\end{align*}
+So $\hat{\beta}$ also maximizes the likelihood of the posterior distribution.
 \end{sol}
