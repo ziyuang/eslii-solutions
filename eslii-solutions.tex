@@ -9,12 +9,15 @@
 \date{\today}
 \author{Lin Ziyuan}
 
-\newcounter{theproblem}[section]
-\newcounter{thesolution}[section]
+\newcounter{problem}[section]
+\newcounter{solution}[section]
 
-\newenvironment{ex}[1][]{\medskip\noindent {\stepcounter{theproblem}\textbf{Ex \thesection.\arabic{theproblem} #1} }}
+\renewcommand{\theproblem}{\arabic{problem} }
+\renewcommand{\thesolution}{\arabic{solution} }
 
-\newenvironment{sol}[1][]{\medskip\noindent {\stepcounter{thesolution}\textbf{Sol \thesection.\arabic{thesolution} #1} }}{\medskip}
+\newenvironment{ex}[1][]{\medskip\noindent {\refstepcounter{problem}\textbf{Ex \thesection.\theproblem #1} }}
+
+\newenvironment{sol}[1][]{\medskip\noindent {\refstepcounter{solution}\textbf{Sol \thesection.\arabic{solution} #1} }}{\medskip}
 
 \DeclareMathOperator*{\argmin}{arg\,min\,}
 \DeclareMathOperator*{\argmax}{arg\,max\,}
@@ -32,5 +35,7 @@
 \input{chapter02.tex}
 \newpage 
 \input{chapter03.tex}
+\newpage
+\input{chapter04.tex}
 
 \end{document}

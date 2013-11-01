@@ -2,6 +2,7 @@
 
 %3.1
 \begin{sol}
+\label{3.1}
 Let $\hat{\beta}$ be the parameter estimation for the bigger model and $\tilde{\beta}$ be the one for the smaller model. We first have
 \begin{align*}
 (\mathrm{RSS}_0-\mathrm{RSS}_1)/(p_1-p_0) = & \|y-X\tilde{\beta}\|^2 - \|y-X\hat{\beta}\|^2 \\
@@ -163,7 +164,7 @@ Then one can follow the routine of ridge regression to get other $\beta_j^c$'s w
 \begin{sol}
 From
 \begin{align*}
-P(\beta\vert y) \propto & P(y\vert\beta)P(\beta)\\
+P(\beta\vert y,X) \propto & P(y\vert\beta,X)P(\beta)\\
 \propto& \exp\left[-\frac{1}{2\sigma^2}\left(\|y-X\beta\|^2+\frac{\sigma^2}{\tau}\|\beta\|^2\right)\right]
 \end{align*}
 we immediately know that $\lambda=\sigma^2/\tau$ and ridge regression estimate is the mode of the posterior distribution. To prove that it's also the mean, we let $\hat{\beta}$ be the ridge regression estimate:
@@ -176,5 +177,65 @@ then
 =& \beta^\mathrm{T}\left(X^\mathrm{T}X+\frac{\sigma^2}{\tau}I\right)\beta - 2y^\mathrm{T}X\beta + y^\mathrm{T}y\\
 =& (\beta-\hat{\beta})^\mathrm{T}\left(X^\mathrm{T}X+\frac{\sigma^2}{\tau}I\right)(\beta-\hat{\beta})-\hat{\beta}^\mathrm{T}\left(X^\mathrm{T}X+\frac{\sigma^2}{\tau}I\right)\hat{\beta}+\|y\|^2
 \end{align*}
-So $\hat{\beta}$ also maximizes the likelihood of the posterior distribution.
+which can be minimized when $\beta=\hat{\beta}$. So $\hat{\beta}$ also maximizes the likelihood of the posterior distribution.
+\end{sol}
+
+%3.7
+\begin{sol}
+Similarly, the equivalence can be seen from
+\begin{align*}
+P(\beta_0,\beta\vert y,X) \propto & P(y\vert\beta_0,\beta,X)P(\beta)\\
+=& \prod_i P(y_i\vert\beta_0,\beta,X)\cdot\prod_j P(\beta_j)\\
+\propto& \prod_i \exp\left[-\frac{1}{2\sigma^2}\left(y_i-\beta_0-x_i^\mathrm{T}\beta\right)\right] \cdot \prod_j \exp\left(-\frac{\beta_j^2}{2\tau^2}\right)\\
+=& \exp\left\{-\frac{1}{2\sigma^2}\left[\sum_i \left(y_i-\beta_0-\sum_jx_{ij}\beta_j\right)+\frac{\sigma^2}{\tau^2}\sum_j \beta_j^2\right]\right\}
+\end{align*}
+\end{sol}
+
+%3.8
+\begin{sol}
+Let $X_2$ be the feature matrix without the column of 1's. We first consider the case where $N>p$ and $X_2$ is not singular. 
+From
+\[
+X=(e,X_2)=QR=\left(\frac{1}{\sqrt{n}}e,Q_2\right)
+\begin{pmatrix}
+\sqrt{n} & \frac{1}{\sqrt{n}}e^\mathrm{T}X_2 \\
+0 & R_2
+\end{pmatrix}
+=\left(e,\frac{1}{n}ee^\mathrm{T}X_2+Q_2R_2\right)
+\]
+we know that 
+\[
+\tilde{X}=\left(I-\frac{1}{n}ee^\mathrm{T}\right)X_2=Q_2R_2
+\]
+Meanwhile we have $\tilde{X}=U\Sigma V^\mathrm{T}$, which gives $U=Q_2R_2(\Sigma V^\mathrm{T})^{-1}$, implying $Q_2$ and $U$ span the same subspace. If $Q_2=U$ (up to sign flips, same below), then $R_2=U^\mathrm{T}U\Sigma V^\mathrm{T}=\Sigma V^\mathrm{T}$, that is, rows of $R_2$ are orthogonal. But $R_2$ is upper triangle, so $R_2$ is diagonal, and subsequently the columns of $\tilde{X}$ are orthogonal.
+
+In the case where $N\le p$ or $X$ is singular, $R_2$ and $V$ are not square matrices any more. One needs to replace the inverse with pseudo-inverse to get $\mathrm{span}(Q_2)=\mathrm{span}(U)$. But the condition for $Q_2=U$ is more difficult to find.
+\end{sol}
+
+%3.9
+\begin{sol}
+Let $X_1=QR$ and $Q=(z_1,\cdots,z_q)$. Suppose a new $\tilde{x}$ comes from the columns of $X_2$, we have
+\[
+(X_1, \tilde{x})=\tilde{Q}\tilde{R}=\left(Q,\frac{\tilde{x}-QQ^\mathrm{T}\tilde{x}}{\|\tilde{x}-QQ^\mathrm{T}\tilde{x}\|}\right)
+\begin{pmatrix}
+R & Q^\mathrm{T}\tilde{x}\\
+0 & \|\tilde{x}-QQ^\mathrm{T}\tilde{x}\|
+\end{pmatrix}
+\]
+Denote $z_{q+1}=(\tilde{x}-QQ^\mathrm{T}\tilde{x})/\|\tilde{x}-QQ^\mathrm{T}\tilde{x}\|$, $\Omega=\mathrm{span}(Q)$, and $\tilde{\Omega}=\mathrm{span}(Q,z_{q+1})=\mathrm{span}(Q,\tilde{x})$, then it's easy to verify
+$\Omega\subset\tilde{\Omega}$, $QQ^\mathrm{T}y\in \Omega$, $\tilde{Q}\tilde{Q}^\mathrm{T}y\in \tilde{\Omega}$, $y-QQ^\mathrm{T}y\in \Omega^\perp$, and $y-\tilde{Q}\tilde{Q}^\mathrm{T}y\in \tilde{\Omega}^\perp$. Define $\tilde{r}$ as the new residue, we have
+\begin{align*}
+r =& \|y-QQ^\mathrm{T}y\|^2\\
+=& \|(y-\tilde{Q}\tilde{Q}^\mathrm{T}y)+(\tilde{Q}\tilde{Q}^\mathrm{T}y-QQ^\mathrm{T}y)\|^2\\
+=& \tilde{r} + \|\tilde{Q}\tilde{Q}^\mathrm{T}y-QQ^\mathrm{T}y\|^2 + 2(y-\tilde{Q}\tilde{Q}^\mathrm{T}y)^\mathrm{T}(\tilde{Q}\tilde{Q}^\mathrm{T}y-QQ^\mathrm{T}y)\\
+=& \tilde{r} + \|(\tilde{Q}\tilde{Q}^\mathrm{T}-QQ^\mathrm{T})y\|^2\\
+=& \tilde{r} + \left\|\left(\frac{\tilde{x}-QQ^\mathrm{T}\tilde{x}}{\|\tilde{x}-QQ^\mathrm{T}\tilde{x}\|}\right)\left(\frac{\tilde{x}-QQ^\mathrm{T}\tilde{x}}{\|\tilde{x}-QQ^\mathrm{T}\tilde{x}\|}\right)^\mathrm{T}y\right\|^2\\
+=& \tilde{r} + \left[\tilde{x}^\mathrm{T}(I-QQ^\mathrm{T})y\right]^2
+\end{align*}
+So $\tilde{r}=r-[\tilde{x}^\mathrm{T}(I-QQ^\mathrm{T})y]^2$. In practice, one can use this update rule to find the $\tilde{x}$ that gives the smallest $\tilde{r}$.
+\end{sol}
+
+%3.10
+\begin{sol}
+Already discussed in \thesection.\ref{3.1}, so just drop the variable with the smallest z-score.
 \end{sol}
