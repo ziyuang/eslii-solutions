@@ -57,10 +57,47 @@ one can finish the proof immediately.
 
 %3.2
 \begin{sol}
-%\begin{enumerate}
-%\item Pointwise confidence bands
-%\item Simultaneous confidence bands
-%\end{enumerate}
+The main difference happens in the order between taking projection and calculating confidence region.
+\begin{enumerate}
+\item This corresponds to first projecting $\beta$ onto $\alpha$ then calculating the confidence interval. We have
+\begin{align*}
+&\hat{\beta}\sim\mathcal{N}(\beta, \sigma^2(X^TX)^{-1})\\
+\Longrightarrow & \alpha^\mathrm{T}\hat{\beta}\sim\mathcal{N}(\alpha^\mathrm{T}\beta, \sigma^2\alpha^\mathrm{T}(X^TX)^{-1}\alpha)\\
+\Longrightarrow & \frac{\alpha^\mathrm{T}\hat{\beta} - \alpha^\mathrm{T}\beta}{\hat{\sigma}\sqrt{\alpha^\mathrm{T}(X^TX)^{-1}\alpha}} \sim t_{N-p-1}
+\end{align*}
+So the 95\% confidence band is
+\[
+\left[\alpha^\mathrm{T}\hat{\beta}-\hat{\sigma}\sqrt{\alpha^\mathrm{T}(X^TX)^{-1}\alpha}\cdot t_{N-p-1}^{(1-0.025)}, \alpha^\mathrm{T}\hat{\beta}+\hat{\sigma}\sqrt{\alpha^\mathrm{T}(X^TX)^{-1}\alpha}\cdot t_{N-p-1}^{(1-0.025)}\right]
+\]
+for each testing point $\alpha$.
+\item This corresponds to first calculating the confidence region $C_\beta$ then projecting $\beta\in C_\beta$ onto $\alpha$. The lower boundary of the confidence interval is determined by
+\begin{align*}
+&\min_\beta \alpha^\mathrm{T}\beta\\
+\st& (\beta-\hat{\beta})^\mathrm{T}X^TX(\beta-\hat{\beta})\le\hat{\sigma}^2{\chi_{p+1}^2}^{(1-0.05)}
+\end{align*}
+Or equivalently,
+\begin{align*}
+&\min_z \alpha^\mathrm{T}z\\
+\st& z^\mathrm{T}X^TXz\le\hat{\sigma}^2{\chi_{p+1}^2}^{(1-0.05)}
+\end{align*}
+By KKT conditions, this becomes
+\begin{align*}
+\frac{\partial}{\partial z}\left\{\alpha^{\mathrm{T}}z + \lambda\left[z^\mathrm{T}X^TXz-\hat{\sigma}^2{\chi_{p+1}^2}^{(1-0.05)}\right]\right\}\bigg|_{z=z^*}=& 0\\
+\lambda\left[z^{*\mathrm{T}}X^TXz^*-\hat{\sigma}^2{\chi_{p+1}^2}^{(1-0.05)}\right] =& 0
+\end{align*}
+which gives
+\begin{align*}
+\lambda=&\frac{1}{2}\sqrt{\frac{\alpha^\mathrm{T}(X^TX)^{-1}\alpha}{\hat{\sigma}^2{\chi_{p+1}^2}^{1-0.95}}}\\
+z^*=&\sqrt{\frac{\hat{\sigma}^2{\chi_{p+1}^2}^{1-0.95}}{\alpha^\mathrm{T}(X^TX)^{-1}\alpha}}\cdot(X^TX)^{-1}\alpha
+\end{align*}
+It can be easily verified that $\lambda\ge0$ and $z^\mathrm{*T}X^TXz^*\le\hat{\sigma}^2{\chi_{p+1}^2}^{(1-0.05)}$, so they are feasible. This gives the confidence band
+\[
+\left[\alpha^\mathrm{T}\hat{\beta}-\hat{\sigma}\sqrt{\alpha^\mathrm{T}(X^TX)^{-1}\alpha\cdot {\chi_{p+1}^2}^{(1-0.05)}},
+\alpha^\mathrm{T}\hat{\beta}+\hat{\sigma}\sqrt{\alpha^\mathrm{T}(X^TX)^{-1}\alpha\cdot {\chi_{p+1}^2}^{(1-0.05)}}
+\right]
+\]
+\end{enumerate}
+For a fixed $p$, $\sqrt{{\chi_{p+1}^2}^{(1-0.05)}}-t_{N-p-1}^{(1-0.025)}$ grows monotonically when $N$ grows, with the limit as $\sqrt{{\chi_{p+1}^2}^{(1-0.05)}}-\Phi(1-0.025)$, where $\Phi$ is the probit function. For $p=3$ and $N\ge 5$, $\sqrt{{\chi_{p+1}^2}^{(1-0.05)}}>t_{N-p-1}^{(1-0.025)}$ from $N\ge 8$. The limit of the difference is $\sqrt{{\chi_{4}^2}^{(1-0.05)}}-\Phi(1-0.025)\approx 1.120252$.
 \end{sol}
 
 %3.3
@@ -232,10 +269,10 @@ r =& \|y-QQ^\mathrm{T}y\|^2\\
 =& \tilde{r} + \left\|\left(\frac{\tilde{x}-QQ^\mathrm{T}\tilde{x}}{\|\tilde{x}-QQ^\mathrm{T}\tilde{x}\|}\right)\left(\frac{\tilde{x}-QQ^\mathrm{T}\tilde{x}}{\|\tilde{x}-QQ^\mathrm{T}\tilde{x}\|}\right)^\mathrm{T}y\right\|^2\\
 =& \tilde{r} + \left[\tilde{x}^\mathrm{T}(I-QQ^\mathrm{T})y\right]^2
 \end{align*}
-So $\tilde{r}=r-[\tilde{x}^\mathrm{T}(I-QQ^\mathrm{T})y]^2$. In practice, one can use this update rule to find the $\tilde{x}$ that gives the smallest $\tilde{r}$.
+So $\tilde{r}=r-[\tilde{x}^\mathrm{T}(I-QQ^\mathrm{T})y]^2$. In practice, one can use this update rule to find the $\tilde{x}$ that gives the largest $\left[\tilde{x}^\mathrm{T}(I-QQ^\mathrm{T})y\right]^2$.
 \end{sol}
 
 %3.10
 \begin{sol}
-Already discussed in \thesection.\ref{3.1}, so just drop the variable with the smallest z-score.
+As discussed in \thesection.\ref{3.1}, just drop the variable with the smallest Z-score.
 \end{sol}
