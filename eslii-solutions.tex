@@ -1,5 +1,5 @@
 \documentclass{article}
-\usepackage{amsmath,amssymb}
+\usepackage{amsmath,amssymb, amsthm}
 \usepackage{xltxtra,xunicode}
 \usepackage{fontspec}
 \usepackage{enumitem}
@@ -9,15 +9,17 @@
 \date{\today}
 \author{Lin Ziyuan}
 
-\newcounter{problem}[section]
-\newcounter{solution}[section]
+%\newcounter{problem}[section]
+%\newcounter{solution}[section]
+%
+%\renewcommand{\theproblem}{\arabic{problem} }
+%\renewcommand{\thesolution}{\arabic{solution} }
 
-\renewcommand{\theproblem}{\arabic{problem} }
-\renewcommand{\thesolution}{\arabic{solution} }
+%\newenvironment{ex}[1][]{\medskip\noindent {\refstepcounter{problem}\textbf{Ex \thesection.\theproblem #1} }}
+%\newenvironment{sol}[1][]{\medskip\noindent {\refstepcounter{solution}\textbf{Sol \thesection.\arabic{solution} #1} }}{\medskip}
 
-\newenvironment{ex}[1][]{\medskip\noindent {\refstepcounter{problem}\textbf{Ex \thesection.\theproblem #1} }}
-
-\newenvironment{sol}[1][]{\medskip\noindent {\refstepcounter{solution}\textbf{Sol \thesection.\arabic{solution} #1} }}{\medskip}
+\theoremstyle{definition}
+\newtheorem{sol}{Solution}[section]
 
 \DeclareMathOperator*{\argmin}{arg\,min\,}
 \DeclareMathOperator*{\argmax}{arg\,max\,}
