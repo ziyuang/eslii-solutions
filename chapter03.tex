@@ -156,7 +156,7 @@ X =& (x_1,\cdots,x_{p+1})\\
 Q =& (e_1,\cdots,e_{p+1})=(\frac{z_1}{\|z_1\|},\cdots,\frac{z_{p+1}}{\|z_{p+1}\|})\\
 r_{ij} =& e_i^\mathrm{T}x_j
 \end{align*}
-Then we can write the equations involving individual $\hat{\beta}_i$'s in a ``bottom-up'' way
+Then we can write the equations involving individual $\hat{\beta}_i$ in a ``bottom-up'' way
 \begin{align*}
 (e_{p+1}^\mathrm{T}x_{p+1})\hat{\beta}_{p+1} &= e_{p+1}^\mathrm{T}y\\
 (e_{p}^\mathrm{T}x_{p})\hat{\beta}_{p} + (e_{p}^\mathrm{T}x_{p+1})\hat{\beta}_{p+1} &= e_{p}^\mathrm{T}y\\
@@ -192,8 +192,8 @@ By setting $\partial \mathcal{L}/\partial \beta^c_0=0$, we have
 & \sum_{i=1}^{N}\left[y_i-\beta_0^c-\sum_{j=1}^{p}\left(x_{ij}-\bar{x}_j\right)\beta^c_j\right]=0\\
 \Longrightarrow & \beta_0^c=\frac{1}{N}\sum_{i=1}^{N}y_i-\frac{1}{N}\sum_{j=1}^{p}\sum_{i=1}^{N}\left(x_{ij}-\bar{x}_j\right)\beta^c_j=\frac{1}{N}\sum_{i=1}^{N}y_i
 \end{align*}
-Then one can follow the routine of ridge regression to get other $\beta_j^c$'s with the centered design matrix.
-\item Lasso. The regularization term does not affect the derivation of $\beta_0^c$, so we have the same $\beta_0^c$, with other $\beta_j^c$'s obtained from any Lasso solver.
+Then one can follow the routine of ridge regression to get other $\beta_j^c$ with the centered design matrix.
+\item Lasso. The regularization term does not affect the derivation of $\beta_0^c$, so we have the same $\beta_0^c$, with other $\beta_j^c$ obtained from any Lasso solver.
 \end{enumerate}
 \end{sol}
 
@@ -275,4 +275,34 @@ So $\tilde{r}=r-[\tilde{x}^\mathrm{T}(I-QQ^\mathrm{T})y]^2$. In practice, one ca
 %3.10
 \begin{sol}
 As discussed in \thesection.\ref{3.1}, just alternatingly drop the variable with the smallest Z-score and refit the model.
+\end{sol}
+
+%3.11
+\begin{sol}
+If $\Sigma_i=\Sigma$,
+\begin{align*}
+& \frac{\partial}{\partial B}\sum_{i=1}^N\left(y_i-B^\mathrm{T}x_i\right)^\mathrm{T}\Sigma^{-1}\left(y_i-B^\mathrm{T}x_i\right)=0\\
+\Longrightarrow & \sum_{i=1}^N\Sigma^{-1}\left(y_i-B^\mathrm{T}x_i\right)x_i^\mathrm{T}=0\\
+\Longrightarrow & \Sigma^{-1}(Y^\mathrm{T}-B^\mathrm{T}X^\mathrm{T})X=0\\
+\Longrightarrow & B=(X^\mathrm{T}X)^{-1}X^\mathrm{T}Y
+\end{align*}
+If $\Sigma_i$ are different, let $\vect(\cdot)$ be the operator that ``column-ordered'' a matrix into a vector, then
+\begin{align*}
+& \sum_{i=1}^N\Sigma_i^{-1}\left(y_i-B^\mathrm{T}x_i\right)x_i^\mathrm{T}=0\\
+\Longrightarrow & \sum_{i=1}^{N}x_ix_i^\mathrm{T}B\Sigma_i^{-1}=\sum_{i=1}^{N}x_iy_i^\mathrm{T}\Sigma_i^{-1} \\
+\Longrightarrow & \left(\sum_{i=1}^{N}\Sigma_i^{-1}\otimes x_ix_i^\mathrm{T}\right)\cdot\vect(B)=\vect\left(\sum_{i=1}^{N}x_iy_i^\mathrm{T}\Sigma_i^{-1}\right)\\
+\Longrightarrow & \vect(B)=\left(\sum_{i=1}^{N}\Sigma_i^{-1}\otimes x_ix_i^\mathrm{T}\right)^{-1}\cdot\vect\left(\sum_{i=1}^{N}x_iy_i^\mathrm{T}\Sigma_i^{-1}\right)
+\end{align*}
+In the last equality, if we set $\Sigma_i=\Sigma$, it becomes
+\begin{align*}
+\vect(B) =& \left(\Sigma^{-1}\otimes\sum_{i=1}^{N}x_ix_i^\mathrm{T}\right)^{-1} \left(\Sigma^{-1}\otimes I\right)\cdot\vect\left(\sum_{i=1}^{N}x_iy_i^\mathrm{T}\right)\\
+=& \left[\Sigma\otimes\left(\sum_{i=1}^{N}x_ix_i^\mathrm{T}\right)^{-1}\right] \left(\Sigma^{-1}\otimes I\right)\cdot\vect\left(\sum_{i=1}^{N}x_iy_i^\mathrm{T}\right)\\
+=& \left[\Sigma\otimes\left(X^\mathrm{T}X\right)^{-1}\right] \left(\Sigma^{-1}\otimes I\right)\cdot\vect\left(X^\mathrm{T}Y\right)\\
+=& I\otimes \left(X^\mathrm{T}X\right)^{-1}\cdot \vect\left(X^\mathrm{T}Y\right)\\
+=& \vect\left[\left(X^\mathrm{T}X\right)^{-1}X^\mathrm{T}Y\right]
+\end{align*}
+which again comes to
+\[
+B=\left(X^\mathrm{T}X\right)^{-1}X^\mathrm{T}Y
+\]
 \end{sol}
