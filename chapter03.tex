@@ -306,3 +306,22 @@ which again comes to
 B=\left(X^\mathrm{T}X\right)^{-1}X^\mathrm{T}Y
 \]
 \end{sol}
+
+%3.12
+\begin{sol}
+Let
+\begin{align*}
+\tilde{X}=&\begin{pmatrix}
+X\\
+\sqrt{\lambda}I
+\end{pmatrix}\\
+\tilde{y}=&\begin{pmatrix}
+y\\
+0
+\end{pmatrix}
+\end{align*}
+Direct verification shows that
+\[
+\hat{\tilde{\beta}}^{\mathrm{LS}}=\left(\tilde{X}^\mathrm{T}\tilde{X}\right)^{-1}\tilde{X}^\mathrm{T}\tilde{y}=\left(X^\mathrm{T}X+\lambda I\right)^{-1}X^\mathrm{T}y=\hat{\beta}^{\mathrm{ridge}}
+\]
+\end{sol}
