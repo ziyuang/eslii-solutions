@@ -11,14 +11,21 @@
 
 %\newcounter{problem}[section]
 %\newcounter{solution}[section]
-%
 %\renewcommand{\theproblem}{\arabic{problem} }
 %\renewcommand{\thesolution}{\arabic{solution} }
-
 %\newenvironment{ex}[1][]{\medskip\noindent {\refstepcounter{problem}\textbf{Ex \thesection.\theproblem #1} }}
 %\newenvironment{sol}[1][]{\medskip\noindent {\refstepcounter{solution}\textbf{Sol \thesection.\arabic{solution} #1} }}{\medskip}
 
-\theoremstyle{definition}
+\newtheoremstyle{solution}% name
+  {}%         Space above, empty = `usual value'
+  {}%         Space below
+  {}% Body font
+  {}%         Indent amount (empty = no indent, \parindent = para indent)
+  {\bfseries}% Thm head font
+  {}%        Punctuation after thm head
+  {\newline}% Space after thm head: \newline = linebreak
+  {}%         Thm head spec
+\theoremstyle{solution}
 \newtheorem{sol}{Solution}[section]
 
 \DeclareMathOperator*{\argmin}{arg\,min\,}
@@ -32,7 +39,6 @@
 \begin{document}
 \maketitle
 \setcounter{section}{1}
-
 
 \input{chapter02.tex}
 \newpage 
