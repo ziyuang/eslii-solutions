@@ -325,3 +325,20 @@ Direct verification shows that
 \hat{\tilde{\beta}}^{\mathrm{LS}}=\left(\tilde{X}^\mathrm{T}\tilde{X}\right)^{-1}\tilde{X}^\mathrm{T}\tilde{y}=\left(X^\mathrm{T}X+\lambda I\right)^{-1}X^\mathrm{T}y=\hat{\beta}^{\mathrm{ridge}}
 \]
 \end{sol}
+
+%3.13
+\begin{sol}
+WLOG we suppose $X$ has been centered, so $\bar{y}=0$. Let $X=U\Sigma V^\mathrm{T}$, with $V=(v_1,\cdots,v_M)$ invertible when $M=p$, and let $Z=(z_1,\cdots,z_M), \hat{\theta}=(\theta_1,\cdots,\theta_M)^\mathrm{T}$. From $z_m=Xv_m$ we immediately have
+\begin{align*}
+&\hat{y}_{(M)}^\mathrm{pcr}=\sum_{m=1}^{M}\hat{\theta}_mz_m=X\sum_{m=1}^{M}\hat{\theta}_mv_m\\
+\Longrightarrow & \hat{\beta}^\mathrm{pcr}(M)=\sum_{m=1}^{M}\hat{\theta}_mv_m
+\end{align*}
+On the other hand, rewriting $\hat{\theta}_m$ as $\hat{\theta}_m=(z_m^\mathrm{T}z_m)^{-1}z_m^\mathrm{T}y$ gives 
+\begin{align*}
+\hat{y}_{(p)}^\mathrm{pcr}=&\sum_{m=1}^{p}\hat{\theta}_mz_m\\
+=& Z(Z^\mathrm{T}Z)^{-1}Z^\mathrm{T}y\\
+=& XV\left[(XV)^{\mathrm{T}}(XV)\right]^{-1}(XV)^\mathrm{T}y\\
+=& X(X^\mathrm{T}X)^{-1}X^\mathrm{T}y
+\end{align*}
+so $\hat{\beta}^\mathrm{pcr}(p)=\hat{\beta}^\mathrm{LS}$.
+\end{sol}
