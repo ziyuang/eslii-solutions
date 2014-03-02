@@ -340,5 +340,21 @@ On the other hand, rewriting $\hat{\theta}_m$ as $\hat{\theta}_m=(z_m^\mathrm{T}
 =& XV\left[(XV)^{\mathrm{T}}(XV)\right]^{-1}(XV)^\mathrm{T}y\\
 =& X(X^\mathrm{T}X)^{-1}X^\mathrm{T}y
 \end{align*}
-so $\hat{\beta}^\mathrm{pcr}(p)=\hat{\beta}^\mathrm{LS}$.
+so
+\[
+\hat{\beta}^\mathrm{pcr}(p)=\hat{\beta}^\mathrm{LS}
+\].
+\end{sol}
+
+%3.13
+\begin{sol}
+Note that $\{x_j\}_{j=1}^p$ are now orthonormal: $\langle x_i, x_j\rangle=\delta_{ij}$. We have
+\begin{align*}
+\hat{\phi}_{2j} =& \langle x_j^{(1)}, y\rangle\\
+=& \langle x_j-\frac{\langle z_1, x_j \rangle}{\langle z_1, z_1 \rangle} z_1,y \rangle\\
+=& \langle x_j,y\rangle - \frac{\langle z_1, x_j \rangle\langle z_1, y \rangle}{\langle z_1, z_1 \rangle}\\
+=& \hat{\phi}_{1j}-\frac{\hat{\phi}_{1j}\langle x_j,x_j \rangle\cdot\sum_{j=1}^p\hat{\phi}_{1j}\langle x_j,y\rangle}{\langle \sum_{j=1}^p\hat{\phi}_{1j}x_j,\sum_{j=1}^p\hat{\phi}_{1j}x_j\rangle}\\
+=& \hat{\phi}_{1j}-\frac{\hat{\phi}_{1j}\cdot\sum_{j=1}^p\hat{\phi}_{1j}^2}{ \sum_{j=1}^p\hat{\phi}_{1j}^2}\\
+=& 0
+\end{align*}
 \end{sol}
