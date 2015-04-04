@@ -6,10 +6,10 @@
 Let $\hat{\beta}$ be the parameter estimation for the bigger model and $\tilde{\beta}$ be the one for the smaller model. We first have
 \begin{align*}
 (\mathrm{RSS}_0-\mathrm{RSS}_1)/(p_1-p_0) = & \|y-X\tilde{\beta}\|^2 - \|y-X\hat{\beta}\|^2 \\
-=& (y^\mathrm{T}y-2\tilde{\beta}^\mathrm{T}X^\mathrm{T}y+\tilde{\beta}^\mathrm{T}X^\mathrm{T}X\tilde{\beta}) - (y^\mathrm{T}y-2\hat{\beta}^\mathrm{T}X^\mathrm{T}y+\hat{\beta}^\mathrm{T}X^\mathrm{T}X\hat{\beta}) \\
-=& 2(\hat{\beta}-\tilde{\beta})^\mathrm{T}X^\mathrm{T}(y-X\hat{\beta}) + (\hat{\beta}-\tilde{\beta})^\mathrm{T}X^\mathrm{T}X (\hat{\beta}-\tilde{\beta}) \\
-=& 2(\hat{\beta}-\tilde{\beta})^\mathrm{T}(X^\mathrm{T}y-X^\mathrm{T}X(X^\mathrm{T}X)^{-1}X^\mathrm{T}y) + (\hat{\beta}-\tilde{\beta})^\mathrm{T}X^\mathrm{T}X (\hat{\beta}-\tilde{\beta}) \\
-=& (\hat{\beta}-\tilde{\beta})^\mathrm{T}X^\mathrm{T}X (\hat{\beta}-\tilde{\beta})\\
+=& (\Tr{y}y-2\Tr{\tilde{\beta}}\Tr{X}y+\Tr{\tilde{\beta}}\Tr{X}X\tilde{\beta}) - (\Tr{y}y-2\Tr{\hat{\beta}}\Tr{X}y+\Tr{\hat{\beta}}\Tr{X}X\hat{\beta}) \\
+=& 2\Tr{(\hat{\beta}-\tilde{\beta})}\Tr{X}(y-X\hat{\beta}) + \Tr{(\hat{\beta}-\tilde{\beta})}\Tr{X}X (\hat{\beta}-\tilde{\beta}) \\
+=& 2\Tr{(\hat{\beta}-\tilde{\beta})}(\Tr{X}y-\Tr{X}X(\Tr{X}X)^{-1}\Tr{X}y) + \Tr{(\hat{\beta}-\tilde{\beta})}\Tr{X}X (\hat{\beta}-\tilde{\beta}) \\
+=& \Tr{(\hat{\beta}-\tilde{\beta})}\Tr{X}X (\hat{\beta}-\tilde{\beta})\\
 =& \|X (\hat{\beta}-\tilde{\beta})\|^2
 \end{align*}
 Note that $\hat{\beta}$ and $\tilde{\beta}$ satisfy
@@ -23,26 +23,26 @@ and
 \end{align*}
 Denote $e_j$ as the vector with the $j$-th element being 1 and others being 0. The optimality conditions are
 \[
-X^\mathrm{T}(y-X\hat{\beta})=0
+\Tr{X}(y-X\hat{\beta})=0
 \]
 and
 \[
 \begin{cases}
-& X^\mathrm{T}(y-X\tilde{\beta})-\lambda e_j=0\\
+& \Tr{X}(y-X\tilde{\beta})-\lambda e_j=0\\
 & \tilde{\beta}_j=0
 \end{cases}
 \]
 which gives
 \[
-X^\mathrm{T}X (\hat{\beta}-\tilde{\beta}) = \lambda e_j \Longrightarrow \|X (\hat{\beta}-\tilde{\beta})\|^2 = \lambda^2 (X^\mathrm{T}X)^{-1}_{jj} = \lambda^2 (X^\mathrm{T}X)^{-1}_{jj}
+\Tr{X}X (\hat{\beta}-\tilde{\beta}) = \lambda e_j \Longrightarrow \|X (\hat{\beta}-\tilde{\beta})\|^2 = \lambda^2 (\Tr{X}X)^{-1}_{jj} = \lambda^2 (\Tr{X}X)^{-1}_{jj}
 \]
 To determine the value of the Lagrange multiplier $\lambda$, one only needs to notice that
 \begin{align*}
-&\hat{\beta}-\tilde{\beta} = \lambda (X^\mathrm{T}X)^{-1} e_j = \lambda (X^\mathrm{T}X)^{-1}_j \\
-\Longrightarrow & \hat{\beta}_j = \lambda (X^\mathrm{T}X)^{-1}_{jj} \\
-\Longrightarrow & \lambda = \frac{\hat{\beta}_j}{(X^\mathrm{T}X)^{-1}_{jj}}
+&\hat{\beta}-\tilde{\beta} = \lambda (\Tr{X}X)^{-1} e_j = \lambda (\Tr{X}X)^{-1}_j \\
+\Longrightarrow & \hat{\beta}_j = \lambda (\Tr{X}X)^{-1}_{jj} \\
+\Longrightarrow & \lambda = \frac{\hat{\beta}_j}{(\Tr{X}X)^{-1}_{jj}}
 \end{align*}
-where $(X^\mathrm{T}X)^{-1}_j$ is the $j$-th column of $(X^\mathrm{T}X)^{-1}$. If define $v_j\triangleq(X^\mathrm{T}X)^{-1}_{jj}$ and recall $\mathrm{RSS}_1/(N-p_1-1)=\hat{\sigma}^2$, we finally have
+where $(\Tr{X}X)^{-1}_j$ is the $j$-th column of $(\Tr{X}X)^{-1}$. If define $v_j\triangleq(\Tr{X}X)^{-1}_{jj}$ and recall $\mathrm{RSS}_1/(N-p_1-1)=\hat{\sigma}^2$, we finally have
 \[
 F = \left(\frac{\hat{\beta}_j}{v_j}\right)^2 \frac{v_j}{\hat{\sigma}^2} = \frac{\hat{\beta}_j^2}{\hat{\sigma}^2v_j}
 \]
@@ -62,38 +62,38 @@ The main difference happens in the order between taking projection and calculati
 \item This corresponds to first projecting $\beta$ onto $\alpha$ then calculating the confidence interval. We have
 \begin{align*}
 &\hat{\beta}\sim\mathcal{N}(\beta, \sigma^2(X^TX)^{-1})\\
-\Longrightarrow & \alpha^\mathrm{T}\hat{\beta}\sim\mathcal{N}(\alpha^\mathrm{T}\beta, \sigma^2\alpha^\mathrm{T}(X^TX)^{-1}\alpha)\\
-\Longrightarrow & \frac{\alpha^\mathrm{T}\hat{\beta} - \alpha^\mathrm{T}\beta}{\hat{\sigma}\sqrt{\alpha^\mathrm{T}(X^TX)^{-1}\alpha}} \sim t_{N-p-1}
+\Longrightarrow & \Tr{\alpha}\hat{\beta}\sim\mathcal{N}(\Tr{\alpha}\beta, \sigma^2\Tr{\alpha}(X^TX)^{-1}\alpha)\\
+\Longrightarrow & \frac{\Tr{\alpha}\hat{\beta} - \Tr{\alpha}\beta}{\hat{\sigma}\sqrt{\Tr{\alpha}(X^TX)^{-1}\alpha}} \sim t_{N-p-1}
 \end{align*}
 So the 95\% confidence band is
 \[
-\left[\alpha^\mathrm{T}\hat{\beta}-\hat{\sigma}\sqrt{\alpha^\mathrm{T}(X^TX)^{-1}\alpha}\cdot t_{N-p-1}^{(1-0.025)}, \alpha^\mathrm{T}\hat{\beta}+\hat{\sigma}\sqrt{\alpha^\mathrm{T}(X^TX)^{-1}\alpha}\cdot t_{N-p-1}^{(1-0.025)}\right]
+\left[\Tr{\alpha}\hat{\beta}-\hat{\sigma}\sqrt{\Tr{\alpha}(X^TX)^{-1}\alpha}\cdot t_{N-p-1}^{(1-0.025)}, \Tr{\alpha}\hat{\beta}+\hat{\sigma}\sqrt{\Tr{\alpha}(X^TX)^{-1}\alpha}\cdot t_{N-p-1}^{(1-0.025)}\right]
 \]
 for each testing point $\alpha$.
 \item This corresponds to first calculating the confidence region $C_\beta$ then projecting $\beta\in C_\beta$ onto $\alpha$. The lower boundary of the confidence interval is determined by
 \begin{align*}
-&\min_\beta \alpha^\mathrm{T}\beta\\
-\st& (\beta-\hat{\beta})^\mathrm{T}X^TX(\beta-\hat{\beta})\le\hat{\sigma}^2{\chi_{p+1}^2}^{(1-0.05)}
+&\min_\beta \Tr{\alpha}\beta\\
+\st& \Tr{(\beta-\hat{\beta})}X^TX(\beta-\hat{\beta})\le\hat{\sigma}^2{\chi_{p+1}^2}^{(1-0.05)}
 \end{align*}
 Or equivalently,
 \begin{align*}
-&\min_z \alpha^\mathrm{T}z\\
-\st& z^\mathrm{T}X^TXz\le\hat{\sigma}^2{\chi_{p+1}^2}^{(1-0.05)}
+&\min_z \Tr{\alpha}z\\
+\st& \Tr{z}X^TXz\le\hat{\sigma}^2{\chi_{p+1}^2}^{(1-0.05)}
 \end{align*}
 By KKT conditions, this becomes
 \begin{align*}
-\frac{\partial}{\partial z}\left\{\alpha^{\mathrm{T}}z + \lambda\left[z^\mathrm{T}X^TXz-\hat{\sigma}^2{\chi_{p+1}^2}^{(1-0.05)}\right]\right\}\bigg|_{z=z^*}=& 0\\
+\frac{\partial}{\partial z}\left\{\Tr{\alpha}z + \lambda\left[\Tr{z}X^TXz-\hat{\sigma}^2{\chi_{p+1}^2}^{(1-0.05)}\right]\right\}\bigg|_{z=z^*}=& 0\\
 \lambda\left[z^{*\mathrm{T}}X^TXz^*-\hat{\sigma}^2{\chi_{p+1}^2}^{(1-0.05)}\right] =& 0
 \end{align*}
 which gives
 \begin{align*}
-\lambda=&\frac{1}{2}\sqrt{\frac{\alpha^\mathrm{T}(X^TX)^{-1}\alpha}{\hat{\sigma}^2{\chi_{p+1}^2}^{1-0.95}}}\\
-z^*=&\sqrt{\frac{\hat{\sigma}^2{\chi_{p+1}^2}^{1-0.95}}{\alpha^\mathrm{T}(X^TX)^{-1}\alpha}}\cdot(X^TX)^{-1}\alpha
+\lambda=&\frac{1}{2}\sqrt{\frac{\Tr{\alpha}(X^TX)^{-1}\alpha}{\hat{\sigma}^2{\chi_{p+1}^2}^{1-0.95}}}\\
+z^*=&\sqrt{\frac{\hat{\sigma}^2{\chi_{p+1}^2}^{1-0.95}}{\Tr{\alpha}(X^TX)^{-1}\alpha}}\cdot(X^TX)^{-1}\alpha
 \end{align*}
 It can be easily verified that $\lambda\ge0$ and $z^\mathrm{*T}X^TXz^*\le\hat{\sigma}^2{\chi_{p+1}^2}^{(1-0.05)}$, so they are feasible. This gives the confidence band
 \[
-\left[\alpha^\mathrm{T}\hat{\beta}-\hat{\sigma}\sqrt{\alpha^\mathrm{T}(X^TX)^{-1}\alpha\cdot {\chi_{p+1}^2}^{(1-0.05)}},
-\alpha^\mathrm{T}\hat{\beta}+\hat{\sigma}\sqrt{\alpha^\mathrm{T}(X^TX)^{-1}\alpha\cdot {\chi_{p+1}^2}^{(1-0.05)}}
+\left[\Tr{\alpha}\hat{\beta}-\hat{\sigma}\sqrt{\Tr{\alpha}(X^TX)^{-1}\alpha\cdot {\chi_{p+1}^2}^{(1-0.05)}},
+\Tr{\alpha}\hat{\beta}+\hat{\sigma}\sqrt{\Tr{\alpha}(X^TX)^{-1}\alpha\cdot {\chi_{p+1}^2}^{(1-0.05)}}
 \right]
 \]
 \end{enumerate}
@@ -105,70 +105,70 @@ For a fixed $p$, $\sqrt{{\chi_{p+1}^2}^{(1-0.05)}}-t_{N-p-1}^{(1-0.025)}$ grows 
 \begin{enumerate}
 \item
 \label{3.3-1}
-Let $\theta=a^\mathrm{T}\beta$, $\hat{\theta}=a^\mathrm{T}\hat{\beta}=b^\mathrm{T}y$ and $\tilde{\theta}=c^\mathrm{T}y$, where $\hat{\beta}=(X^{\mathrm{T}}X)^{-1}X^{\mathrm{T}}y$, $b=X(X^{\mathrm{T}}X)^{-1}a$ and $y\sim\mathcal{N}(X\beta,\sigma^2I)$. From the unbiasedness of $\tilde{\theta}$, we know $\E[\tilde{\theta}]=c^{\mathrm{T}}X\beta=\E[\hat{\theta}]=a^\mathrm{T}\beta$. Expanding $\var[\hat{\theta}]$ and $\var[\tilde{\theta}]$ we will have
+Let $\theta=\Tr{a}\beta$, $\hat{\theta}=\Tr{a}\hat{\beta}=\Tr{b}y$ and $\tilde{\theta}=\Tr{c}y$, where $\hat{\beta}=(\Tr{X}X)^{-1}\Tr{X}y$, $b=X(\Tr{X}X)^{-1}a$ and $y\sim\mathcal{N}(X\beta,\sigma^2I)$. From the unbiasedness of $\tilde{\theta}$, we know $\E[\tilde{\theta}]=\Tr{c}X\beta=\E[\hat{\theta}]=\Tr{a}\beta$. Expanding $\var[\hat{\theta}]$ and $\var[\tilde{\theta}]$ we will have
 \begin{align*}
-\var[\hat{\theta}] =& b^\mathrm{T}(\sigma^2 I)b\\
-=& \sigma^2 a^\mathrm{T}(X^{\mathrm{T}}X)^{-1}X^\mathrm{T}X(X^{\mathrm{T}}X)^{-1}a\\
-=& \sigma^2 a^\mathrm{T}(X^{\mathrm{T}}X)^{-1}a\\
-\var[\tilde{\theta}] =& c^\mathrm{T}(\sigma^2 I)c\\
-=& \sigma^2 c^\mathrm{T}c
+\var[\hat{\theta}] =& \Tr{b}(\sigma^2 I)b\\
+=& \sigma^2 \Tr{a}(\Tr{X}X)^{-1}\Tr{X}X(\Tr{X}X)^{-1}a\\
+=& \sigma^2 \Tr{a}(\Tr{X}X)^{-1}a\\
+\var[\tilde{\theta}] =& \Tr{c}(\sigma^2 I)c\\
+=& \sigma^2 \Tr{c}c
 \end{align*}
 Now consider
 \begin{align*}
-\min_c \ & c^\mathrm{T}c\\
-\st & c^{\mathrm{T}}X\beta=a^\mathrm{T}\beta
+\min_c \ & \Tr{c}c\\
+\st & \Tr{c}X\beta=\Tr{a}\beta
 \end{align*}
-The Lagrangian $L=c^\mathrm{T}c+\lambda(c^{\mathrm{T}}X\beta-a^\mathrm{T}\beta)$ gives the stationary condition:
+The Lagrangian $L=\Tr{c}c+\lambda(\Tr{c}X\beta-\Tr{a}\beta)$ gives the stationary condition:
 \begin{align*}
 \frac{\partial L}{\partial c}=& 2c+\lambda X\beta=0\\
-\frac{\partial L}{\partial \lambda}=& c^{\mathrm{T}}X\beta-a^\mathrm{T}\beta=0
+\frac{\partial L}{\partial \lambda}=& \Tr{c}X\beta-\Tr{a}\beta=0
 \end{align*}
 Canceling the $\lambda$ gives
 \[
-c=\frac{a^\mathrm{T}\beta}{\beta^{\mathrm{T}}X^{\mathrm{T}}X\beta}\cdot X\beta
+c=\frac{\Tr{a}\beta}{\Tr{\beta}\Tr{X}X\beta}\cdot X\beta
 \]
 So
 \begin{align*}
-& c^\mathrm{T}c\ge \frac{\left(a^\mathrm{T}\beta\right)^2}{\beta^{\mathrm{T}}X^{\mathrm{T}}X\beta}=\frac{\beta^{\mathrm{T}}aa^{\mathrm{T}}\beta}{\beta^{\mathrm{T}}X^{\mathrm{T}}X\beta}\\
-\Longrightarrow & c^\mathrm{T}c\ge \max_\beta \frac{\beta^{\mathrm{T}}aa^{\mathrm{T}}\beta}{\beta^{\mathrm{T}}X^{\mathrm{T}}X\beta}
+& \Tr{c}c\ge \frac{\left(\Tr{a}\beta\right)^2}{\Tr{\beta}\Tr{X}X\beta}=\frac{\Tr{\beta}a\Tr{a}\beta}{\Tr{\beta}\Tr{X}X\beta}\\
+\Longrightarrow & \Tr{c}c\ge \max_\beta \frac{\Tr{\beta}a\Tr{a}\beta}{\Tr{\beta}\Tr{X}X\beta}
 \end{align*}
 The final optimization problem is equivalent to
 \begin{align*}
-\max_\beta \ & \beta^{\mathrm{T}}aa^{\mathrm{T}}\beta\\
-\st & \beta^{\mathrm{T}}X^{\mathrm{T}}X\beta=1
+\max_\beta \ & \Tr{\beta}a\Tr{a}\beta\\
+\st & \Tr{\beta}\Tr{X}X\beta=1
 \end{align*}
-Again by Lagrange multiplier, we can see that the maximum is the largest eigenvalue, denoted as $\mu$, of $A=aa^{\mathrm{T}}(X^{\mathrm{T}}X)^{-1}$. But since $\mathrm{rank}(A)=1$, so $\mu=\tr(A)=a^{\mathrm{T}}(X^{\mathrm{T}}X)^{-1}a$.
-\item We similarly let $\tilde{\beta}=Cy\in\mathbb{R}^{p+1}$, then $\hat{V}=\sigma^2(X^\mathrm{T}X)^{-1}$, $\tilde{V}=\sigma^2CC^{\mathrm{T}}$ and $\E[\tilde{\beta}]=CX\beta=\beta$. From \ref{3.3-1}, $\forall a\in\mathbb{R}^{p+1}$, given $a^{\mathrm{T}}CX\beta=a^{\mathrm{T}}\beta$, we have
+Again by Lagrange multiplier, we can see that the maximum is the largest eigenvalue, denoted as $\mu$, of $A=a\Tr{a}(\Tr{X}X)^{-1}$. But since $\mathrm{rank}(A)=1$, so $\mu=\tr(A)=\Tr{a}(\Tr{X}X)^{-1}a$.
+\item We similarly let $\tilde{\beta}=Cy\in\mathbb{R}^{p+1}$, then $\hat{V}=\sigma^2(\Tr{X}X)^{-1}$, $\tilde{V}=\sigma^2CC^{\mathrm{T}}$ and $\E[\tilde{\beta}]=CX\beta=\beta$. From \ref{3.3-1}, $\forall a\in\mathbb{R}^{p+1}$, given $\Tr{a}CX\beta=\Tr{a}\beta$, we have
 \begin{align*}
-& a^{\mathrm{T}}CC^{\mathrm{T}}a\ge a^{\mathrm{T}}(X^\mathrm{T}X)^{-1}a\\
-\Longrightarrow & a^{\mathrm{T}}\left(CC^{\mathrm{T}}-(X^\mathrm{T}X)^{-1}\right)a\ge 0\\
-\Longrightarrow & CC^{\mathrm{T}} - \left(X^\mathrm{T}X\right)^{-1} \succeq 0\\
-\Longrightarrow & CC^{\mathrm{T}}\succeq \left(X^\mathrm{T}X\right)^{-1}
+& \Tr{a}CC^{\mathrm{T}}a\ge \Tr{a}(\Tr{X}X)^{-1}a\\
+\Longrightarrow & \Tr{a}\left(CC^{\mathrm{T}}-(\Tr{X}X)^{-1}\right)a\ge 0\\
+\Longrightarrow & CC^{\mathrm{T}} - \left(\Tr{X}X\right)^{-1} \succeq 0\\
+\Longrightarrow & CC^{\mathrm{T}}\succeq \left(\Tr{X}X\right)^{-1}
 \end{align*}
 \end{enumerate}
 \end{sol}
 
 %3.4
 \begin{sol}
-From $X=QR$ one can get $\hat{\beta}=(X^\mathrm{T}X)^{-1}X^\mathrm{T}y=R^{-1}Q^\mathrm{T}y\Longrightarrow R\hat{\beta}=Q^\mathrm{T}y$. Further we denote
+From $X=QR$ one can get $\hat{\beta}=(\Tr{X}X)^{-1}\Tr{X}y=R^{-1}\Tr{Q}y\Longrightarrow R\hat{\beta}=\Tr{Q}y$. Further we denote
 \begin{align*}
 X =& (x_1,\cdots,x_{p+1})\\
 Q =& (e_1,\cdots,e_{p+1})=(\frac{z_1}{\|z_1\|},\cdots,\frac{z_{p+1}}{\|z_{p+1}\|})\\
-r_{ij} =& e_i^\mathrm{T}x_j
+r_{ij} =& \Tr{e_i}x_j
 \end{align*}
 Then we can write the equations involving individual $\hat{\beta}_i$ in a ``bottom-up'' way
 \begin{align*}
-(e_{p+1}^\mathrm{T}x_{p+1})\hat{\beta}_{p+1} &= e_{p+1}^\mathrm{T}y\\
-(e_{p}^\mathrm{T}x_{p})\hat{\beta}_{p} + (e_{p}^\mathrm{T}x_{p+1})\hat{\beta}_{p+1} &= e_{p}^\mathrm{T}y\\
+(\Tr{e_{p+1}}x_{p+1})\hat{\beta}_{p+1} &= \Tr{e_{p+1}}y\\
+(\Tr{e_{p}}x_{p})\hat{\beta}_{p} + (\Tr{e_{p}}x_{p+1})\hat{\beta}_{p+1} &= \Tr{e_{p}}y\\
 &\vdotswithin{=}\\
-(e_{1}^\mathrm{T}x_{1})\hat{\beta}_{1} + \cdots + (e_{1}^\mathrm{T}x_{p+1})\hat{\beta}_{p+1} &= e_{1}^\mathrm{T}y
+(\Tr{e_{1}}x_{1})\hat{\beta}_{1} + \cdots + (\Tr{e_{1}}x_{p+1})\hat{\beta}_{p+1} &= \Tr{e_{1}}y
 \end{align*}
 This can be solved sequentially:
 \begin{align*}
-\hat{\beta}_{p+1} &= \frac{e_{p+1}^\mathrm{T}y}{e_{p+1}^\mathrm{T}x_{p+1}}\\
-\hat{\beta}_{p} &= \frac{e_{p}^\mathrm{T}y}{e_{p}^\mathrm{T}x_{p}}-\frac{e_{p}^\mathrm{T}x_{p+1}}{e_{p}^\mathrm{T}x_{p}}\hat{\beta}_{p+1}\\
+\hat{\beta}_{p+1} &= \frac{\Tr{e_{p+1}}y}{\Tr{e_{p+1}}x_{p+1}}\\
+\hat{\beta}_{p} &= \frac{\Tr{e_{p}}y}{\Tr{e_{p}}x_{p}}-\frac{\Tr{e_{p}}x_{p+1}}{\Tr{e_{p}}x_{p}}\hat{\beta}_{p+1}\\
 &\vdotswithin{=}\\
-\hat{\beta}_{1} &= \frac{e_{1}^\mathrm{T}y}{e_{1}^\mathrm{T}x_{1}}- \frac{e_{1}^\mathrm{T}x_{2}}{e_{1}^\mathrm{T}x_{1}}\hat{\beta}_{2} - \cdots - \frac{e_{1}^\mathrm{T}x_{p+1}}{e_{1}^\mathrm{T}x_{1}}\hat{\beta}_{p+1}
+\hat{\beta}_{1} &= \frac{\Tr{e_{1}}y}{\Tr{e_{1}}x_{1}}- \frac{\Tr{e_{1}}x_{2}}{\Tr{e_{1}}x_{1}}\hat{\beta}_{2} - \cdots - \frac{\Tr{e_{1}}x_{p+1}}{\Tr{e_{1}}x_{1}}\hat{\beta}_{p+1}
 \end{align*}
 \end{sol}
 
@@ -206,13 +206,13 @@ P(\beta\vert y,X) \propto & P(y\vert\beta,X)P(\beta)\\
 \end{align*}
 we immediately know that $\lambda=\sigma^2/\tau$ and ridge regression estimate is the mode of the posterior distribution. To prove that it's also the mean, we let $\hat{\beta}$ be the ridge regression estimate:
 \[
-\hat{\beta}=\left(X^\mathrm{T}X+\frac{\sigma^2}{\tau}I\right)^{-1}X^\mathrm{T}y
+\hat{\beta}=\left(\Tr{X}X+\frac{\sigma^2}{\tau}I\right)^{-1}\Tr{X}y
 \]
 then
 \begin{align*}
 & \|y-X\beta\|^2+\frac{\sigma^2}{\tau}\|\beta\|^2 \\
-=& \beta^\mathrm{T}\left(X^\mathrm{T}X+\frac{\sigma^2}{\tau}I\right)\beta - 2y^\mathrm{T}X\beta + y^\mathrm{T}y\\
-=& (\beta-\hat{\beta})^\mathrm{T}\left(X^\mathrm{T}X+\frac{\sigma^2}{\tau}I\right)(\beta-\hat{\beta})-\hat{\beta}^\mathrm{T}\left(X^\mathrm{T}X+\frac{\sigma^2}{\tau}I\right)\hat{\beta}+\|y\|^2
+=& \Tr{\beta}\left(\Tr{X}X+\frac{\sigma^2}{\tau}I\right)\beta - 2\Tr{y}X\beta + \Tr{y}y\\
+=& \Tr{(\beta-\hat{\beta})}\left(\Tr{X}X+\frac{\sigma^2}{\tau}I\right)(\beta-\hat{\beta})-\Tr{\hat{\beta}}\left(\Tr{X}X+\frac{\sigma^2}{\tau}I\right)\hat{\beta}+\|y\|^2
 \end{align*}
 which can be minimized when $\beta=\hat{\beta}$. So $\hat{\beta}$ also maximizes the likelihood of the posterior distribution.
 \end{sol}
@@ -223,7 +223,7 @@ Similarly, the equivalence can be seen from
 \begin{align*}
 P(\beta_0,\beta\vert y,X) \propto & P(y\vert\beta_0,\beta,X)P(\beta)\\
 =& \prod_i P(y_i\vert\beta_0,\beta,X)\cdot\prod_j P(\beta_j)\\
-\propto& \prod_i \exp\left[-\frac{1}{2\sigma^2}\left(y_i-\beta_0-x_i^\mathrm{T}\beta\right)\right] \cdot \prod_j \exp\left(-\frac{\beta_j^2}{2\tau^2}\right)\\
+\propto& \prod_i \exp\left[-\frac{1}{2\sigma^2}\left(y_i-\beta_0-\Tr{x_i}\beta\right)\right] \cdot \prod_j \exp\left(-\frac{\beta_j^2}{2\tau^2}\right)\\
 =& \exp\left\{-\frac{1}{2\sigma^2}\left[\sum_i \left(y_i-\beta_0-\sum_jx_{ij}\beta_j\right)+\frac{\sigma^2}{\tau^2}\sum_j \beta_j^2\right]\right\}
 \end{align*}
 \end{sol}
@@ -235,16 +235,16 @@ From
 \[
 X=(e,X_2)=QR=\left(\frac{1}{\sqrt{n}}e,Q_2\right)
 \begin{pmatrix}
-\sqrt{n} & \frac{1}{\sqrt{n}}e^\mathrm{T}X_2 \\
+\sqrt{n} & \frac{1}{\sqrt{n}}\Tr{e}X_2 \\
 0 & R_2
 \end{pmatrix}
-=\left(e,\frac{1}{n}ee^\mathrm{T}X_2+Q_2R_2\right)
+=\left(e,\frac{1}{n}e\Tr{e}X_2+Q_2R_2\right)
 \]
 we know that 
 \[
-\tilde{X}=\left(I-\frac{1}{n}ee^\mathrm{T}\right)X_2=Q_2R_2
+\tilde{X}=\left(I-\frac{1}{n}e\Tr{e}\right)X_2=Q_2R_2
 \]
-Meanwhile we have $\tilde{X}=U\Sigma V^\mathrm{T}$, which gives $U=Q_2R_2(\Sigma V^\mathrm{T})^{-1}$, implying $Q_2$ and $U$ span the same subspace. If $Q_2=U$ (up to sign flips, same below), then $R_2=U^\mathrm{T}U\Sigma V^\mathrm{T}=\Sigma V^\mathrm{T}$, that is, rows of $R_2$ are orthogonal. But $R_2$ is upper triangle, so $R_2$ is diagonal, and subsequently the columns of $\tilde{X}$ are orthogonal.
+Meanwhile we have $\tilde{X}=U\Sigma \Tr{V}$, which gives $U=Q_2R_2(\Sigma \Tr{V})^{-1}$, implying $Q_2$ and $U$ span the same subspace. If $Q_2=U$ (up to sign flips, same below), then $R_2=\Tr{U}U\Sigma \Tr{V}=\Sigma \Tr{V}$, that is, rows of $R_2$ are orthogonal. But $R_2$ is upper triangle, so $R_2$ is diagonal, and subsequently the columns of $\tilde{X}$ are orthogonal.
 
 In the case where $N\le p$ or $X$ is singular, $R_2$ and $V$ are not square matrices any more. One needs to replace the inverse with pseudo-inverse to get $\mathrm{span}(Q_2)=\mathrm{span}(U)$. But the condition for $Q_2=U$ is more difficult to find.
 \end{sol}
@@ -253,23 +253,23 @@ In the case where $N\le p$ or $X$ is singular, $R_2$ and $V$ are not square matr
 \begin{sol}
 Let $X_1=QR$ and $Q=(z_1,\cdots,z_q)$. Suppose a new $\tilde{x}$ comes from the columns of $X_2$, we have
 \[
-(X_1, \tilde{x})=\tilde{Q}\tilde{R}=\left(Q,\frac{\tilde{x}-QQ^\mathrm{T}\tilde{x}}{\|\tilde{x}-QQ^\mathrm{T}\tilde{x}\|}\right)
+(X_1, \tilde{x})=\tilde{Q}\tilde{R}=\left(Q,\frac{\tilde{x}-Q\Tr{Q}\tilde{x}}{\|\tilde{x}-Q\Tr{Q}\tilde{x}\|}\right)
 \begin{pmatrix}
-R & Q^\mathrm{T}\tilde{x}\\
-0 & \|\tilde{x}-QQ^\mathrm{T}\tilde{x}\|
+R & \Tr{Q}\tilde{x}\\
+0 & \|\tilde{x}-Q\Tr{Q}\tilde{x}\|
 \end{pmatrix}
 \]
-Denote $z_{q+1}=(\tilde{x}-QQ^\mathrm{T}\tilde{x})/\|\tilde{x}-QQ^\mathrm{T}\tilde{x}\|$, $\Omega=\mathrm{span}(Q)$, and $\tilde{\Omega}=\mathrm{span}(Q,z_{q+1})=\mathrm{span}(Q,\tilde{x})$, then it's easy to verify
-$\Omega\subset\tilde{\Omega}$, $QQ^\mathrm{T}y\in \Omega$, $\tilde{Q}\tilde{Q}^\mathrm{T}y\in \tilde{\Omega}$, $y-QQ^\mathrm{T}y\in \Omega^\perp$, and $y-\tilde{Q}\tilde{Q}^\mathrm{T}y\in \tilde{\Omega}^\perp$. Define $\tilde{r}$ as the new residue, we have
+Denote $z_{q+1}=(\tilde{x}-Q\Tr{Q}\tilde{x})/\|\tilde{x}-Q\Tr{Q}\tilde{x}\|$, $\Omega=\mathrm{span}(Q)$, and $\tilde{\Omega}=\mathrm{span}(Q,z_{q+1})=\mathrm{span}(Q,\tilde{x})$, then it's easy to verify
+$\Omega\subset\tilde{\Omega}$, $Q\Tr{Q}y\in \Omega$, $\tilde{Q}\Tr{\tilde{Q}}y\in \tilde{\Omega}$, $y-Q\Tr{Q}y\in \Omega^\perp$, and $y-\tilde{Q}\Tr{\tilde{Q}}y\in \tilde{\Omega}^\perp$. Define $\tilde{r}$ as the new residue, we have
 \begin{align*}
-r =& \|y-QQ^\mathrm{T}y\|^2\\
-=& \|(y-\tilde{Q}\tilde{Q}^\mathrm{T}y)+(\tilde{Q}\tilde{Q}^\mathrm{T}y-QQ^\mathrm{T}y)\|^2\\
-=& \tilde{r} + \|\tilde{Q}\tilde{Q}^\mathrm{T}y-QQ^\mathrm{T}y\|^2 + 2(y-\tilde{Q}\tilde{Q}^\mathrm{T}y)^\mathrm{T}(\tilde{Q}\tilde{Q}^\mathrm{T}y-QQ^\mathrm{T}y)\\
-=& \tilde{r} + \|(\tilde{Q}\tilde{Q}^\mathrm{T}-QQ^\mathrm{T})y\|^2\\
-=& \tilde{r} + \left\|\left(\frac{\tilde{x}-QQ^\mathrm{T}\tilde{x}}{\|\tilde{x}-QQ^\mathrm{T}\tilde{x}\|}\right)\left(\frac{\tilde{x}-QQ^\mathrm{T}\tilde{x}}{\|\tilde{x}-QQ^\mathrm{T}\tilde{x}\|}\right)^\mathrm{T}y\right\|^2\\
-=& \tilde{r} + \left[\tilde{x}^\mathrm{T}(I-QQ^\mathrm{T})y\right]^2
+r =& \|y-Q\Tr{Q}y\|^2\\
+=& \|(y-\tilde{Q}\Tr{\tilde{Q}}y)+(\tilde{Q}\Tr{\tilde{Q}}y-Q\Tr{Q}y)\|^2\\
+=& \tilde{r} + \|\tilde{Q}\Tr{\tilde{Q}}y-Q\Tr{Q}y\|^2 + 2\Tr{(y-\tilde{Q}\Tr{\tilde{Q}}y)}(\tilde{Q}\Tr{\tilde{Q}}y-Q\Tr{Q}y)\\
+=& \tilde{r} + \|(\tilde{Q}\Tr{\tilde{Q}}-Q\Tr{Q})y\|^2\\
+=& \tilde{r} + \left\|\left(\frac{\tilde{x}-Q\Tr{Q}\tilde{x}}{\|\tilde{x}-Q\Tr{Q}\tilde{x}\|}\right)\Tr{\left(\frac{\tilde{x}-Q\Tr{Q}\tilde{x}}{\|\tilde{x}-Q\Tr{Q}\tilde{x}\|}\right)}y\right\|^2\\
+=& \tilde{r} + \left[\Tr{\tilde{x}}(I-Q\Tr{Q})y\right]^2
 \end{align*}
-So $\tilde{r}=r-[\tilde{x}^\mathrm{T}(I-QQ^\mathrm{T})y]^2$. In practice, one can use this update rule to find the $\tilde{x}$ that gives the largest $\left[\tilde{x}^\mathrm{T}(I-QQ^\mathrm{T})y\right]^2$.
+So $\tilde{r}=r-[\Tr{\tilde{x}}(I-Q\Tr{Q})y]^2$. In practice, one can use this update rule to find the $\tilde{x}$ that gives the largest $\left[\Tr{\tilde{x}}(I-Q\Tr{Q})y\right]^2$.
 \end{sol}
 
 %3.10
@@ -281,29 +281,29 @@ As discussed in \thesection.\ref{3.1}, just alternatingly drop the variable with
 \begin{sol}
 If $\Sigma_i=\Sigma$,
 \begin{align*}
-& \frac{\partial}{\partial B}\sum_{i=1}^N\left(y_i-B^\mathrm{T}x_i\right)^\mathrm{T}\Sigma^{-1}\left(y_i-B^\mathrm{T}x_i\right)=0\\
-\Longrightarrow & \sum_{i=1}^N\Sigma^{-1}\left(y_i-B^\mathrm{T}x_i\right)x_i^\mathrm{T}=0\\
-\Longrightarrow & \Sigma^{-1}(Y^\mathrm{T}-B^\mathrm{T}X^\mathrm{T})X=0\\
-\Longrightarrow & B=(X^\mathrm{T}X)^{-1}X^\mathrm{T}Y
+& \frac{\partial}{\partial B}\sum_{i=1}^N\Tr{\left(y_i-\Tr{B}x_i\right)}\Sigma^{-1}\left(y_i-\Tr{B}x_i\right)=0\\
+\Longrightarrow & \sum_{i=1}^N\Sigma^{-1}\left(y_i-\Tr{B}x_i\right)\Tr{x_i}=0\\
+\Longrightarrow & \Sigma^{-1}(\Tr{Y}-\Tr{B}\Tr{X})X=0\\
+\Longrightarrow & B=(\Tr{X}X)^{-1}\Tr{X}Y
 \end{align*}
 If $\Sigma_i$ are different, let $\vect(\cdot)$ be the operator that ``column-ordered'' a matrix into a vector, then
 \begin{align*}
-& \sum_{i=1}^N\Sigma_i^{-1}\left(y_i-B^\mathrm{T}x_i\right)x_i^\mathrm{T}=0\\
-\Longrightarrow & \sum_{i=1}^{N}x_ix_i^\mathrm{T}B\Sigma_i^{-1}=\sum_{i=1}^{N}x_iy_i^\mathrm{T}\Sigma_i^{-1} \\
-\Longrightarrow & \left(\sum_{i=1}^{N}\Sigma_i^{-1}\otimes x_ix_i^\mathrm{T}\right)\cdot\vect(B)=\vect\left(\sum_{i=1}^{N}x_iy_i^\mathrm{T}\Sigma_i^{-1}\right)\\
-\Longrightarrow & \vect(B)=\left(\sum_{i=1}^{N}\Sigma_i^{-1}\otimes x_ix_i^\mathrm{T}\right)^{-1}\cdot\vect\left(\sum_{i=1}^{N}x_iy_i^\mathrm{T}\Sigma_i^{-1}\right)
+& \sum_{i=1}^N\Sigma_i^{-1}\left(y_i-\Tr{B}x_i\right)\Tr{x_i}=0\\
+\Longrightarrow & \sum_{i=1}^{N}x_i\Tr{x_i}B\Sigma_i^{-1}=\sum_{i=1}^{N}x_i\Tr{y_i}\Sigma_i^{-1} \\
+\Longrightarrow & \left(\sum_{i=1}^{N}\Sigma_i^{-1}\otimes x_i\Tr{x_i}\right)\cdot\vect(B)=\vect\left(\sum_{i=1}^{N}x_i\Tr{y_i}\Sigma_i^{-1}\right)\\
+\Longrightarrow & \vect(B)=\left(\sum_{i=1}^{N}\Sigma_i^{-1}\otimes x_i\Tr{x_i}\right)^{-1}\cdot\vect\left(\sum_{i=1}^{N}x_i\Tr{y_i}\Sigma_i^{-1}\right)
 \end{align*}
 In the last equality, if we set $\Sigma_i=\Sigma$, it becomes
 \begin{align*}
-\vect(B) =& \left(\Sigma^{-1}\otimes\sum_{i=1}^{N}x_ix_i^\mathrm{T}\right)^{-1} \left(\Sigma^{-1}\otimes I\right)\cdot\vect\left(\sum_{i=1}^{N}x_iy_i^\mathrm{T}\right)\\
-=& \left[\Sigma\otimes\left(\sum_{i=1}^{N}x_ix_i^\mathrm{T}\right)^{-1}\right] \left(\Sigma^{-1}\otimes I\right)\cdot\vect\left(\sum_{i=1}^{N}x_iy_i^\mathrm{T}\right)\\
-=& \left[\Sigma\otimes\left(X^\mathrm{T}X\right)^{-1}\right] \left(\Sigma^{-1}\otimes I\right)\cdot\vect\left(X^\mathrm{T}Y\right)\\
-=& I\otimes \left(X^\mathrm{T}X\right)^{-1}\cdot \vect\left(X^\mathrm{T}Y\right)\\
-=& \vect\left[\left(X^\mathrm{T}X\right)^{-1}X^\mathrm{T}Y\right]
+\vect(B) =& \left(\Sigma^{-1}\otimes\sum_{i=1}^{N}x_i\Tr{x_i}\right)^{-1} \left(\Sigma^{-1}\otimes I\right)\cdot\vect\left(\sum_{i=1}^{N}x_i\Tr{y_i}\right)\\
+=& \left[\Sigma\otimes\left(\sum_{i=1}^{N}x_i\Tr{x_i}\right)^{-1}\right] \left(\Sigma^{-1}\otimes I\right)\cdot\vect\left(\sum_{i=1}^{N}x_i\Tr{y_i}\right)\\
+=& \left[\Sigma\otimes\left(\Tr{X}X\right)^{-1}\right] \left(\Sigma^{-1}\otimes I\right)\cdot\vect\left(\Tr{X}Y\right)\\
+=& I\otimes \left(\Tr{X}X\right)^{-1}\cdot \vect\left(\Tr{X}Y\right)\\
+=& \vect\left[\left(\Tr{X}X\right)^{-1}\Tr{X}Y\right]
 \end{align*}
 which again comes to
 \[
-B=\left(X^\mathrm{T}X\right)^{-1}X^\mathrm{T}Y
+B=\left(\Tr{X}X\right)^{-1}\Tr{X}Y
 \]
 \end{sol}
 
@@ -322,31 +322,31 @@ y\\
 \end{align*}
 Direct verification shows that
 \[
-\hat{\tilde{\beta}}^{\mathrm{LS}}=\left(\tilde{X}^\mathrm{T}\tilde{X}\right)^{-1}\tilde{X}^\mathrm{T}\tilde{y}=\left(X^\mathrm{T}X+\lambda I\right)^{-1}X^\mathrm{T}y=\hat{\beta}^{\mathrm{ridge}}
+\hat{\tilde{\beta}}^{\mathrm{LS}}=\left(\Tr{\tilde{X}}\tilde{X}\right)^{-1}\Tr{\tilde{X}}\tilde{y}=\left(\Tr{X}X+\lambda I\right)^{-1}\Tr{X}y=\hat{\beta}^{\mathrm{ridge}}
 \]
 \end{sol}
 
 %3.13
 \begin{sol}
-WLOG we suppose $X$ has been centered, so $\bar{y}=0$. Let $X=U\Sigma V^\mathrm{T}$, with $V=(v_1,\cdots,v_M)$ invertible when $M=p$, and let $Z=(z_1,\cdots,z_M), \hat{\theta}=(\theta_1,\cdots,\theta_M)^\mathrm{T}$. From $z_m=Xv_m$ we immediately have
+WLOG we suppose $X$ has been centered, so $\bar{y}=0$. Let $X=U\Sigma \Tr{V}$, with $V=(v_1,\cdots,v_M)$ invertible when $M=p$, and let $Z=(z_1,\cdots,z_M), \hat{\theta}=\Tr{(\theta_1,\cdots,\theta_M)}$. From $z_m=Xv_m$ we immediately have
 \begin{align*}
 &\hat{y}_{(M)}^\mathrm{pcr}=\sum_{m=1}^{M}\hat{\theta}_mz_m=X\sum_{m=1}^{M}\hat{\theta}_mv_m\\
 \Longrightarrow & \hat{\beta}^\mathrm{pcr}(M)=\sum_{m=1}^{M}\hat{\theta}_mv_m
 \end{align*}
-On the other hand, rewriting $\hat{\theta}_m$ as $\hat{\theta}_m=(z_m^\mathrm{T}z_m)^{-1}z_m^\mathrm{T}y$ gives 
+On the other hand, rewriting $\hat{\theta}_m$ as $\hat{\theta}_m=(\Tr{z_m}z_m)^{-1}\Tr{z_m}y$ gives 
 \begin{align*}
 \hat{y}_{(p)}^\mathrm{pcr}=&\sum_{m=1}^{p}\hat{\theta}_mz_m\\
-=& Z(Z^\mathrm{T}Z)^{-1}Z^\mathrm{T}y\\
-=& XV\left[(XV)^{\mathrm{T}}(XV)\right]^{-1}(XV)^\mathrm{T}y\\
-=& X(X^\mathrm{T}X)^{-1}X^\mathrm{T}y
+=& Z(\Tr{Z}Z)^{-1}\Tr{Z}y\\
+=& XV\left[(XV)^{\mathrm{T}}(XV)\right]^{-1}\Tr{(XV)}y\\
+=& X(\Tr{X}X)^{-1}\Tr{X}y
 \end{align*}
 so
 \[
 \hat{\beta}^\mathrm{pcr}(p)=\hat{\beta}^\mathrm{LS}
-\].
+\]
 \end{sol}
 
-%3.13
+%3.14
 \begin{sol}
 Note that $\{x_j\}_{j=1}^p$ are now orthonormal: $\langle x_i, x_j\rangle=\delta_{ij}$. We have
 \begin{align*}
@@ -357,4 +357,16 @@ Note that $\{x_j\}_{j=1}^p$ are now orthonormal: $\langle x_i, x_j\rangle=\delta
 =& \hat{\phi}_{1j}-\frac{\hat{\phi}_{1j}\cdot\sum_{j=1}^p\hat{\phi}_{1j}^2}{ \sum_{j=1}^p\hat{\phi}_{1j}^2}\\
 =& 0
 \end{align*}
+\end{sol}
+
+%3.15
+\begin{sol}
+When $m=0$,
+\begin{align*}
+\corr(y,X\alpha)^2\var(X\alpha)=& \frac{\Tr{y}X\alpha}{\|y\|^2}\\
+\propto & \|\Tr{y}X\|^2\|\alpha\|^2\\
+=& \|\Tr{y}X\|^2
+\end{align*}
+Two sides are equal iff $\alpha\propto \Tr{y}X$. So $\hat{\phi}_0$ solves the optimization problem. \\
+TODO: $m\ge 1$.
 \end{sol}
