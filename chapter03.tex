@@ -370,3 +370,45 @@ When $m=0$,
 Two sides are equal iff $\alpha\propto \Tr{y}X$. So $\hat{\phi}_0$ solves the optimization problem. \\
 TODO: $m\ge 1$.
 \end{sol}
+
+%3.16
+\begin{sol}
+When $X$ is orthonormal, $\Tr{X}X=I$ and $\hat{y}=\sum_i\hat{\beta}_ix_i\Rightarrow r^2=\|y-\hat{y}\|^2=\|y\|^2-\sum_i \hat{\beta}_i^2$.
+\begin{enumerate}
+	\item Best subset (size $M$). Let $X^{(M)}$ be the new design matrix after feature selection. Since $X^{(M)}$ is still orthonormal, so the only change in the residue calculation is the indices in the summands:
+	\[
+	r^2=\|y-\hat{y}^{(M)}\|^2=\|y\|^2-\sum_{i\in I} \hat{\beta}_i^2
+	\]
+	where $I$ with $|I|=M$ be the index set of the chosen features. To minimize the residue, we keep the $M$ largest $\hat{\beta}_i$ in the right hand side, which means
+	\[
+	\hat{\beta}_i^{(M)}=\hat{\beta}_i\cdot I(|\hat{\beta}_i|\ge |\hat{\beta}_{(M)}|)
+	\]
+	\item Ridge regression. Direct calculation shows
+	\[
+	\hat{\beta}^{\mathrm{Ridge}}=(\Tr{X}X+\lambda I)^{-1}\Tr{X}y=\hat{\beta}/(1+\lambda)
+	\]
+	\item Lasso. To optimize
+	\[
+	\min_\beta \frac{1}{2}\|y-X\beta\|_2^2+\lambda \|\beta\|_1,
+	\] 
+	we let $\bm{0}$ be in the subdifferential:
+	\begin{align*}
+	&\bm{0}\in-\Tr{X}(y-X\beta)+\lambda\cdot\partial\|\beta\|_1\\
+	\Longrightarrow & 0\in -\hat{\beta}_i+\beta_i+\lambda\cdot\partial|\beta_i|\\
+	\Longrightarrow & \beta_i\in\hat{\beta}_i-\lambda\cdot\partial|\beta_i|\\
+	\Longrightarrow & \begin{cases}
+	\beta_i=\hat{\beta}_i+\lambda & \mbox{if } \beta_i<0\\
+	\beta_i=\hat{\beta}_i-\lambda & \mbox{if } \beta_i>0\\
+	\beta_i\in[\hat{\beta}_i-\lambda, \hat{\beta}_i+\lambda] & \mbox{if } \beta_i=0
+	\end{cases}\\
+	\Longrightarrow & \begin{cases}
+	\beta_i=\hat{\beta}_i+\lambda & \mbox{if } \hat{\beta}_i<-\lambda\\
+	\beta_i=\hat{\beta}_i-\lambda & \mbox{if } \hat{\beta}_i>\lambda\\
+	\beta_i=0 & \mbox{if }-\lambda\le\hat{\beta}_i\le\lambda
+	\end{cases}\\
+	\Longrightarrow & \beta_i^{Lasso}=\sign(\hat{\beta_i})(\hat{\beta_i}-\lambda)_+
+	\end{align*}
+	
+
+\end{enumerate}
+\end{sol}
