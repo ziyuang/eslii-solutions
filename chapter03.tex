@@ -2,7 +2,7 @@
 
 %3.1
 \begin{sol}
-\label{3.1}
+\label{prob:3-1}
 Let $\hat{\beta}$ be the parameter estimation for the bigger model and $\tilde{\beta}$ be the one for the smaller model. We first have
 \begin{align*}
 (\mathrm{RSS}_0-\mathrm{RSS}_1)/(p_1-p_0) = & \|y-X\tilde{\beta}\|^2 - \|y-X\hat{\beta}\|^2 \\
@@ -104,7 +104,7 @@ For a fixed $p$, $\sqrt{{\chi_{p+1}^2}^{(1-0.05)}}-t_{N-p-1}^{(1-0.025)}$ grows 
 \begin{sol}
 \begin{enumerate}
 \item
-\label{3.3-1}
+\label{prob:3-3-1}
 Let $\theta=\Tr{a}\beta$, $\hat{\theta}=\Tr{a}\hat{\beta}=\Tr{b}y$ and $\tilde{\theta}=\Tr{c}y$, where $\hat{\beta}=(\Tr{X}X)^{-1}\Tr{X}y$, $b=X(\Tr{X}X)^{-1}a$ and $y\sim\mathcal{N}(X\beta,\sigma^2I)$. From the unbiasedness of $\tilde{\theta}$, we know $\E[\tilde{\theta}]=\Tr{c}X\beta=\E[\hat{\theta}]=\Tr{a}\beta$. Expanding $\var[\hat{\theta}]$ and $\var[\tilde{\theta}]$ we will have
 \begin{align*}
 \var[\hat{\theta}] =& \Tr{b}(\sigma^2 I)b\\
@@ -138,7 +138,7 @@ The final optimization problem is equivalent to
 \st & \Tr{\beta}\Tr{X}X\beta=1
 \end{align*}
 Again by Lagrange multiplier, we can see that the maximum is the largest eigenvalue, denoted as $\mu$, of $A=a\Tr{a}(\Tr{X}X)^{-1}$. But since $\mathrm{rank}(A)=1$, so $\mu=\tr(A)=\Tr{a}(\Tr{X}X)^{-1}a$.
-\item We similarly let $\tilde{\beta}=Cy\in\mathbb{R}^{p+1}$, then $\hat{V}=\sigma^2(\Tr{X}X)^{-1}$, $\tilde{V}=\sigma^2CC^{\mathrm{T}}$ and $\E[\tilde{\beta}]=CX\beta=\beta$. From \ref{3.3-1}, $\forall a\in\mathbb{R}^{p+1}$, given $\Tr{a}CX\beta=\Tr{a}\beta$, we have
+\item We similarly let $\tilde{\beta}=Cy\in\mathbb{R}^{p+1}$, then $\hat{V}=\sigma^2(\Tr{X}X)^{-1}$, $\tilde{V}=\sigma^2CC^{\mathrm{T}}$ and $\E[\tilde{\beta}]=CX\beta=\beta$. From \ref{prob:3-3-1}, $\forall a\in\mathbb{R}^{p+1}$, given $\Tr{a}CX\beta=\Tr{a}\beta$, we have
 \begin{align*}
 & \Tr{a}CC^{\mathrm{T}}a\ge \Tr{a}(\Tr{X}X)^{-1}a\\
 \Longrightarrow & \Tr{a}\left(CC^{\mathrm{T}}-(\Tr{X}X)^{-1}\right)a\ge 0\\
@@ -274,7 +274,7 @@ So $\tilde{r}=r-[\Tr{\tilde{x}}(I-Q\Tr{Q})y]^2$. In practice, one can use this u
 
 %3.10
 \begin{sol}
-As discussed in \thesection.\ref{3.1}, just alternatingly drop the variable with the smallest Z-score and refit the model.
+As discussed in \thesection.\ref{prob:3-1}, just alternatingly drop the variable with the smallest Z-score and refit the model.
 \end{sol}
 
 %3.11
@@ -301,7 +301,7 @@ In the last equality, if we set $\Sigma_i=\Sigma$, it becomes
 =& I\otimes \left(\Tr{X}X\right)^{-1}\cdot \vect\left(\Tr{X}Y\right)\\
 =& \vect\left[\left(\Tr{X}X\right)^{-1}\Tr{X}Y\right]
 \end{align*}
-which again comes to
+which goes back to
 \[
 B=\left(\Tr{X}X\right)^{-1}\Tr{X}Y
 \]
@@ -406,9 +406,78 @@ When $X$ is orthonormal, $\Tr{X}X=I$ and $\hat{y}=\sum_i\hat{\beta}_ix_i\Rightar
 	\beta_i=\hat{\beta}_i-\lambda & \mbox{if } \hat{\beta}_i>\lambda\\
 	\beta_i=0 & \mbox{if }-\lambda\le\hat{\beta}_i\le\lambda
 	\end{cases}\\
-	\Longrightarrow & \beta_i^{Lasso}=\sign(\hat{\beta_i})(\hat{\beta_i}-\lambda)_+
+	\Longrightarrow & \hat{\beta}_i^{Lasso}=\sign(\hat{\beta_i})(\hat{\beta_i}-\lambda)_+
 	\end{align*}
-	
-
 \end{enumerate}
 \end{sol}
+
+%3.17
+\begin{sol}
+Skipped.
+\end{sol}
+
+%3.18
+\begin{sol}
+	Later.
+\end{sol}
+
+%3.19
+\begin{sol}
+\begin{enumerate}
+\item Ridge regression.
+\begin{align*}
+	\frac{\partial}{\partial \lambda}\|\hat{\beta}^{\mathrm{ridge}}\|^2 = & \frac{\partial}{\partial \lambda}\Tr{y}X(\Tr{X}X+\lambda I)^{-2}\Tr{X}y\\
+	=& \Tr{y}X\left[\frac{\partial}{\partial \lambda} (\Tr{X}X+\lambda I)^{-2}\right]\Tr{X}y\\
+	=& -2\Tr{y}X(\Tr{X}X+\lambda I)^{-3}\Tr{X}y\\
+	\le & 0
+\end{align*}
+So when $\lambda\to 0$, $\|\hat{\beta}^{\mathrm{ridge}}\|_2$ increases.
+
+\item Lasso. The following R code will create an artificial data set, where $\|\hat{\beta}^{\mathrm{Lasso}}\|_2$ may decrease when $\lambda\to 0$.
+\begin{verbatim}
+library(glmnet)
+set.seed(0)
+N <- 10
+p <- 15
+x1 <- rnorm(N)
+X <- mat.or.vec(N, p)
+X[, 1] <- x1
+for (i in 2:p) {X[, i] <- x1 + rnorm(N, sd=0.2)}
+beta <- rnorm(p, sd=10)
+y <- X %*% beta + rnorm(N, sd=0.01)
+model <- glmnet(X, y, family="gaussian", alpha=1, intercept=FALSE)
+\end{verbatim}
+
+Figure \ref{fig:3-18-profile} and \ref{fig:3-18-l2norm} show some behavior of the fitted Lasso model.\\
+
+Notes:
+\begin{enumerate}
+	\item when $\lambda\to 0$, $\|\hat{\beta}^{\mathrm{Lasso}}\|_1$ increases. More generally, let $L(x;\lambda)=f(x)+\lambda g(x)$, and $x_i^*=\mathrm{arg\,min}_xL(x;\lambda_i)\,(i=1,2)$. Suppose $\lambda_2>\lambda_1$ and $g(x_2^*)>g(x_1^*)$, we have
+	\begin{align*}
+	&(\lambda_2-\lambda_1)(g(x_2^*)-g(x_1^*))>0\\
+	\Longrightarrow & \lambda_1g(x_1^*)+\lambda_2g(x_2^*)>\lambda_1g(x_2^*)+\lambda_2g(x_1^*)\\
+	\Longrightarrow & [f(x_1^*)+\lambda_1g(x_1^*)]+[f(x_2^*)+\lambda_2g(x_2^*)]\\
+	&>[f(x_2^*)+\lambda_1g(x_2^*)]+[f(x_1^*)+\lambda_2g(x_1^*)] \\
+	&\ge [f(x_1^*)+\lambda_1g(x_1^*)]+[f(x_2^*)+\lambda_2g(x_2^*)]
+	\end{align*}
+	which is a contradiction, so $g(x^*)$ doesn't decrease when $\lambda$ decreases. If $x_1^*\ne x_2^*$ and $L$ is strictly convex w.r.t. $x$ for any $\lambda$, $g(x^*)$ increases when $\lambda$ decreases. In the context of Lasso, $\|\hat{\beta}^{\mathrm{Lasso}}\|_1$ increases when $\lambda\to 0$.
+	\item $\|\hat{\beta}^{\mathrm{Lasso}}\|_2$ will not decrease if each $\hat{\beta}^{\mathrm{Lasso}}_i$ changes monotonically when $\lambda$ changes. The Section 6 in \cite{hastie2007} mentions a sufficient and necessary condition for the monotonicity of $\beta^\mathrm{Lasso}$'s profile paths, and constructs an artificial data set violating the condition. 
+\end{enumerate}
+
+ 
+
+\begin{figure}[!ht]
+	\centering
+	\includegraphics[width=0.9\textwidth]{figures/3_18_profile.tikz}
+	\caption{The profile paths of the estimated $\hat{\beta}^{\mathrm{Lasso}}$. Only 5 variables are activated at most.}
+	\label{fig:3-18-profile}
+\end{figure}
+\begin{figure}[!ht]
+	\centering
+	\includegraphics[width=0.9\textwidth]{figures/3_18_l2norm.tikz}
+	\caption{The relation between $\lambda$ and $\|\hat{\beta}^{\mathrm{Lasso}}\|_2$. For some interval of $\lambda$, $\|\hat{\beta}^{\mathrm{Lasso}}\|_2$ decreases as $\lambda$ decreases.}
+	\label{fig:3-18-l2norm}
+\end{figure}
+\end{enumerate}
+\end{sol}
+
