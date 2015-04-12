@@ -134,6 +134,6 @@
 
 \node[text=drawColor,anchor=base,inner sep=0pt, outer sep=0pt, scale=  1.00] at (301.08, 15.60) {$\lambda$};
 
-\node[text=drawColor,rotate= 90.00,anchor=base,inner sep=0pt, outer sep=0pt, scale=  1.00] at ( 15.80,222.81) {$\|\hat{\beta}^\mathrm{Lasso}\|_2$};
+\node[text=drawColor,rotate= 90.00,anchor=base,inner sep=0pt, outer sep=0pt, scale=  1.00] at ( 16.80,222.81) {$\|\hat{\beta}^\mathrm{Lasso}\|_2$};
 \end{scope}
 \end{tikzpicture}
