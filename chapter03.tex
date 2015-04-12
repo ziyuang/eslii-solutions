@@ -418,7 +418,7 @@ Skipped.
 
 %3.18
 \begin{sol}
-	Later.
+	TODO.
 \end{sol}
 
 %3.19
@@ -433,7 +433,7 @@ Skipped.
 \end{align*}
 So when $\lambda\to 0$, $\|\hat{\beta}^{\mathrm{ridge}}\|_2$ increases.
 
-\item Lasso. The following R code will create an artificial data set, where $\|\hat{\beta}^{\mathrm{Lasso}}\|_2$ may decrease when $\lambda\to 0$.
+\item Lasso. The following R code will create an artificial data set, where $\|\hat{\beta}^{\mathrm{lasso}}\|_2$ may decrease when $\lambda\to 0$.
 \begin{verbatim}
 library(glmnet)
 set.seed(0)
@@ -448,11 +448,11 @@ y <- X %*% beta + rnorm(N, sd=0.01)
 model <- glmnet(X, y, family="gaussian", alpha=1, intercept=FALSE)
 \end{verbatim}
 
-Figure \ref{fig:3-18-profile} and \ref{fig:3-18-l2norm} show some behavior of the fitted Lasso model.\\
+Figure \ref{fig:3-18-profile} and \ref{fig:3-18-l2norm} show some behavior of the fitted lasso model.\\
 
 Notes:
 \begin{enumerate}
-	\item when $\lambda\to 0$, $\|\hat{\beta}^{\mathrm{Lasso}}\|_1$ increases. More generally, let $L(x;\lambda)=f(x)+\lambda g(x)$, and $x_i^*=\mathrm{arg\,min}_xL(x;\lambda_i)\,(i=1,2)$. Suppose $\lambda_2>\lambda_1$ and $g(x_2^*)>g(x_1^*)$, we have
+	\item when $\lambda\to 0$, $\|\hat{\beta}^{\mathrm{lasso}}\|_1$ increases. More generally, let $L(x;\lambda)=f(x)+\lambda g(x)$, and $x_i^*=\mathrm{arg\,min}_xL(x;\lambda_i)\,(i=1,2)$. Suppose $\lambda_2>\lambda_1$ and $g(x_2^*)>g(x_1^*)$, we have
 	\begin{align*}
 	&(\lambda_2-\lambda_1)(g(x_2^*)-g(x_1^*))>0\\
 	\Longrightarrow & \lambda_1g(x_1^*)+\lambda_2g(x_2^*)>\lambda_1g(x_2^*)+\lambda_2g(x_1^*)\\
@@ -460,8 +460,8 @@ Notes:
 	&>[f(x_2^*)+\lambda_1g(x_2^*)]+[f(x_1^*)+\lambda_2g(x_1^*)] \\
 	&\ge [f(x_1^*)+\lambda_1g(x_1^*)]+[f(x_2^*)+\lambda_2g(x_2^*)]
 	\end{align*}
-	which is a contradiction, so $g(x^*)$ doesn't decrease when $\lambda$ decreases. If $x_1^*\ne x_2^*$ and $L$ is strictly convex w.r.t. $x$ for $\lambda_1$ and $\lambda_2$, $g(x^*)$ increases when $\lambda$ decreases. In the context of Lasso, $\|\hat{\beta}^{\mathrm{Lasso}}\|_1$ increases when $\lambda\to 0$.
-	\item $\|\hat{\beta}^{\mathrm{Lasso}}\|_2$ will not decrease if each $\hat{\beta}^{\mathrm{Lasso}}_i$ changes monotonically when $\lambda$ changes. The Section 6 in \cite{hastie2007} mentions a sufficient and necessary condition for the monotonicity of $\hat{\beta}^\mathrm{Lasso}$'s profile paths, and constructs an artificial data set violating the condition. 
+	which is a contradiction, so $g(x^*)$ doesn't decrease when $\lambda$ decreases. If $x_1^*\ne x_2^*$ and $L$ is strictly convex w.r.t. $x$ for $\lambda_1$ and $\lambda_2$, $g(x^*)$ increases when $\lambda$ decreases. In the context of lasso, $\|\hat{\beta}^{\mathrm{lasso}}\|_1$ increases when $\lambda\to 0$.
+	\item $\|\hat{\beta}^{\mathrm{lasso}}\|_2$ will not decrease if each $\hat{\beta}^{\mathrm{lasso}}_i$ changes monotonically when $\lambda$ changes. The Section 6 in \cite{hastie2007} mentions a sufficient and necessary condition for the monotonicity of $\hat{\beta}^\mathrm{lasso}$'s profile paths, and constructs an artificial data set violating the condition. 
 \end{enumerate}
 
  
@@ -478,6 +478,8 @@ Notes:
 	\caption{The relation between $\lambda$ and $\|\hat{\beta}^{\mathrm{Lasso}}\|_2$. For some interval of $\lambda$, $\|\hat{\beta}^{\mathrm{Lasso}}\|_2$ decreases as $\lambda$ decreases.}
 	\label{fig:3-18-l2norm}
 \end{figure}
+
+\item Partial least square. TODO.
 \end{enumerate}
 \end{sol}
 

@@ -101,7 +101,7 @@
 \path[clip] (  0.00,  0.00) rectangle (578.16,433.62);
 \definecolor{drawColor}{RGB}{0,0,0}
 
-\node[text=drawColor,anchor=base,inner sep=0pt, outer sep=0pt, scale=  1.00] at (301.08, 15.60) {$\|\hat{\beta}^\mathrm{Lasso}\|_1$};
+\node[text=drawColor,anchor=base,inner sep=0pt, outer sep=0pt, scale=  1.00] at (301.08, 15.60) {$\|\hat{\beta}^\mathrm{lasso}\|_1$};
 
 \node[text=drawColor,rotate= 90.00,anchor=base,inner sep=0pt, outer sep=0pt, scale=  1.00] at ( 14.80,222.81) {Coefficients};
 \end{scope}
