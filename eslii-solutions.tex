@@ -36,6 +36,9 @@
 \theoremstyle{solution}
 \newtheorem{sol}{Solution}[section]
 
+\renewcommand{\thefigure}{\thesection.\arabic{figure}}
+\usepackage[figurewithin=section]{caption}
+
 \DeclareMathOperator*{\argmin}{arg\,min\,}
 \DeclareMathOperator*{\argmax}{arg\,max\,}
 \DeclareMathOperator*{\st}{s.t.\ }

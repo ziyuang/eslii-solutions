@@ -11,7 +11,7 @@ and elements of $\hat{y}$ sum to one, so if $\hat{y}_k$ goes larger, both $\sum_
 
 %2.2
 \begin{sol}
-According to the descriptions at page 16 and 17, the boundary is $\{x\mid \Pr(C=\mathrm{Orange}\vert X=x) =\Pr(C=\mathrm{Blue}\vert X=x)\}$. Suppose the $\{m_k^C\}_{k=1}^{10}$ are known, and introduce a latent variable $h$ for the index of the selected $m^C$. We have
+The boundary satisfies $\{x\mid \Pr(C=\mathrm{Orange}\vert X=x) =\Pr(C=\mathrm{Blue}\vert X=x)\}$. Suppose $\{m_k^C\}_{k=1}^{10}$ are known. Now introduce a latent variable $h$ for the index of the selected $m^C$. We have
 \begin{align*}
 \Pr(C\vert X) =& \frac{\Pr(X\vert C)\Pr(C)}{\sum_C\Pr(X\vert C)\Pr(C)}\\
 \Pr(X\vert C) =& \Pr(X\vert C,\{m_i^C\})\\
@@ -25,6 +25,16 @@ So the boundary can be further simplified as
 \[
 \left\{x\biggm| \sum_{k=1}^{10} \mathcal{N}(m_k^\mathrm{Orange},\mathbf{I}/5)=\sum_{k=1}^{10} \mathcal{N}(m_k^\mathrm{Blue},\mathbf{I}/5)\right\}
 \]
+
+Figure \ref{fig:2-2} gives an example.
+
+\begin{figure}
+	\centering
+	\includegraphics[width=\textwidth]{figures/2_2.eps}
+	\caption{An example of the boundary.}
+	\label{fig:2-2}
+\end{figure}
+
 \end{sol}
 
 %2.3
