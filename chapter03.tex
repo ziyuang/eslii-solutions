@@ -193,7 +193,7 @@ By setting $\partial \mathcal{L}/\partial \beta^c_0=0$, we have
 \Longrightarrow & \beta_0^c=\frac{1}{N}\sum_{i=1}^{N}y_i-\frac{1}{N}\sum_{j=1}^{p}\sum_{i=1}^{N}\left(x_{ij}-\bar{x}_j\right)\beta^c_j=\frac{1}{N}\sum_{i=1}^{N}y_i
 \end{align*}
 Then one can follow the routine of ridge regression to get other $\beta_j^c$ with the centered design matrix.
-\item Lasso. The regularization term does not affect the derivation of $\beta_0^c$, so we have the same $\beta_0^c$, with other $\beta_j^c$ obtained from any Lasso solver.
+\item Lasso. The regularization term does not affect the derivation of $\beta_0^c$, so we have the same $\beta_0^c$, with other $\beta_j^c$ obtained from any lasso solver.
 \end{enumerate}
 \end{sol}
 
@@ -406,7 +406,7 @@ When $X$ is orthonormal, $\Tr{X}X=I$ and $\hat{y}=\sum_i\hat{\beta}_ix_i\Rightar
 	\beta_i=\hat{\beta}_i-\lambda & \mbox{if } \hat{\beta}_i>\lambda\\
 	\beta_i=0 & \mbox{if }-\lambda\le\hat{\beta}_i\le\lambda
 	\end{cases}\\
-	\Longrightarrow & \hat{\beta}_i^{Lasso}=\sign(\hat{\beta_i})(\hat{\beta_i}-\lambda)_+
+	\Longrightarrow & \hat{\beta}_i^{lasso}=\sign(\hat{\beta_i})(\hat{\beta_i}-\lambda)_+
 	\end{align*}
 \end{enumerate}
 \end{sol}
@@ -448,7 +448,7 @@ y <- X %*% beta + rnorm(N, sd=0.01)
 model <- glmnet(X, y, family="gaussian", alpha=1, intercept=FALSE)
 \end{verbatim}
 
-Figure \ref{fig:3-18-profile} and \ref{fig:3-18-l2norm} show some behavior of the fitted lasso model.\\
+Figure \ref{fig:3-18} shows the behavior of the fitted lasso model.\\
 
 Notes:
 \begin{enumerate}
@@ -464,22 +464,29 @@ Notes:
 	\item $\|\hat{\beta}^{\mathrm{lasso}}\|_2$ will not decrease if each $\hat{\beta}^{\mathrm{lasso}}_i$ changes monotonically when $\lambda$ changes. The Section 6 in \cite{hastie2007} mentions a sufficient and necessary condition for the monotonicity of $\hat{\beta}^\mathrm{lasso}$'s profile paths, and constructs an artificial data set violating the condition. 
 \end{enumerate}
 
- 
-
 \begin{figure}[!ht]
 	\centering
 	\includegraphics[width=0.9\textwidth]{figures/3_18_profile.tikz}
-	\caption{The profile paths of the estimated $\hat{\beta}^{\mathrm{Lasso}}$. Only 5 variables are activated at most.}
-	\label{fig:3-18-profile}
-\end{figure}
-\begin{figure}[!ht]
-	\centering
 	\includegraphics[width=0.9\textwidth]{figures/3_18_l2norm.tikz}
-	\caption{The relation between $\lambda$ and $\|\hat{\beta}^{\mathrm{Lasso}}\|_2$. For some interval of $\lambda$, $\|\hat{\beta}^{\mathrm{Lasso}}\|_2$ decreases as $\lambda$ decreases.}
-	\label{fig:3-18-l2norm}
+	\caption{Top: the profile paths of the estimated $\hat{\beta}^{\mathrm{lasso}}$. Only 5 variables are activated at most. Bottom: The relation between $\lambda$ and $\|\hat{\beta}^{\mathrm{lasso}}\|_2$. For some interval of $\lambda$, $\|\hat{\beta}^{\mathrm{lasso}}\|_2$ decreases as $\lambda$ decreases.}
+	\label{fig:3-18}
 \end{figure}
 
-\item Partial least square. TODO.
+<<<<<<< HEAD
+\item TODO: partial least squares.
 \end{enumerate}
 \end{sol}
 
+\setcounter{sol}{28}
+\begin{sol}
+	Let all $X_k=x$ and $\beta^*$ be the fitted coefficients. We have $X\beta^*=(\sum_{k=1}^m\beta_i^*)\cdot x$. Note that $\|\beta\|_2\ge \sum_{k=1}^m\beta_k/\sqrt{m}$ and the equality is achieved when $\beta_1=\cdots=\beta_m$. This means if there exist $\beta^*_i\ne\beta^*_j$, we can find another $\beta^{**}$ with lower cost (lower $\|\beta\|_2$ while keeping $\|y-X\beta\|_2$), contradicting the fact that $\beta^*$ is optimal.
+	
+	The conclusion $\beta^*_1=\cdots=\beta^*_m$ can also be verified by direct calculation. Let $e=\Tr{(1,\cdots,1)}\in\mathbb{R}^m$ and recall that $\|x\|_2=1$, we have
+	\begin{align*}
+	\beta^*=&\left(\Tr{X}X+\lambda I\right)^{-1}\Tr{X}y\\
+	=& \left(e\Tr{e}+\lambda I\right)^{-1}\Tr{X}y\\
+	=& \left[\frac{1}{\lambda}I-\frac{1}{\lambda^2}e\left(1+\frac{m}{\lambda}\right)^{-1}\Tr{e}\right]\Tr{X}y\\
+	=& \frac{1}{\lambda}\Tr{X}y-\frac{m\Tr{x}y}{\lambda(\lambda+m)}e\\
+	=& \frac{\Tr{x}y}{\lambda+m}e
+	\end{align*}
+\end{sol}
