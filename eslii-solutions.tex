@@ -10,19 +10,12 @@
 \usepackage{graphicx}
 \usepackage{tikz}
 \usepackage{tikzscale}
-\usepackage[backend=biber, citestyle=authoryear]{biblatex}
+\usepackage[backend=biber, style=authoryear]{biblatex}
 \addbibresource{eslii-solutions.bib}
 
-\title{Solutions of ESLII Exercises}
+\title{Solutions of exercises in \\\textit{The Elements of Statistical Learning}}
 \date{\today}
 \author{Lin Ziyuan}
-
-%\newcounter{problem}[section]
-%\newcounter{solution}[section]
-%\renewcommand{\theproblem}{\arabic{problem} }
-%\renewcommand{\thesolution}{\arabic{solution} }
-%\newenvironment{ex}[1][]{\medskip\noindent {\refstepcounter{problem}\textbf{Ex \thesection.\theproblem #1} }}
-%\newenvironment{sol}[1][]{\medskip\noindent {\refstepcounter{solution}\textbf{Sol \thesection.\arabic{solution} #1} }}{\medskip}
 
 \newtheoremstyle{solution}% name
   {}%         Space above, empty = `usual value'
@@ -56,9 +49,9 @@
 \setcounter{section}{1}
 
 \input{chapter02.tex}
-\newpage 
+\clearpage
 \input{chapter03.tex}
-\newpage 
+\clearpage
 \printbibliography
 
 \end{document}
